@@ -23,7 +23,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_adm");
     channel.setMethodCallHandler(this);
 
-    final ADM adm = new ADM(this);
+    final context = flutterPluginBinding.applicationContext;
+    final ADM adm = new ADM(context);
   }
 
   @Override
