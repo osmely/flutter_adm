@@ -41,9 +41,11 @@ public class SampleADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     protected void onMessage(final Context context, final Intent intent)
     {
         Log.i(TAG, "SampleADMMessageHandlerJobBase:onMessage");
+        
+        
 
         /* String to access message field from data JSON. */
-        final String msgKey = context.getString(R.string.json_data_msg_key);
+        final String msgKey = context.getResources().getIdentifier("json_data_msg_key", "string", context.getPackageName()); //context.getString(R.string.json_data_msg_key);
 
         /* String to access timeStamp field from data JSON. */
         final String timeKey = context.getString(R.string.json_data_time_key);
