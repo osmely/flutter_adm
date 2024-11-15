@@ -55,7 +55,7 @@ public class ADMHelper {
                                              final String intentAction, final String msg, final String time)
     {
 
-        print("asdasd");
+        
 
         /* Clicking the notification should bring up the MainActivity. */
         /* Intent FLAGS prevent opening multiple instances of MainActivity. */
