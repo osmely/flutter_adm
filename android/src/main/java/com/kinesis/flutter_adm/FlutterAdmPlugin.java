@@ -17,13 +17,15 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
   /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
   private ADM adm;
+  private Context context;
+
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_adm");
     channel.setMethodCallHandler(this);
 
-    final context = flutterPluginBinding.applicationContext;
+    context = flutterPluginBinding.getApplicationContext();
     final ADM adm = new ADM(context);
   }
 
