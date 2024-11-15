@@ -7,6 +7,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import com.amazon.device.messaging.ADM;
 
 /** FlutterAdmPlugin */
 public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
@@ -15,16 +16,26 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
+  private ADM adm;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_adm");
     channel.setMethodCallHandler(this);
+
+    final ADM adm = new ADM(this);
   }
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getPlatformVersion")) {
+
+  
+      if (adm.getRegistrationId() == null)
+      {
+          adm.startRegister();
+      }
+
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else {
       result.notImplemented();
