@@ -3,7 +3,7 @@
  *
  * (c) 2019, Amazon.com, Inc. or its affiliates. All Rights Reserved.
  */
-package com.amazon.sample.admmessenger;
+package com.kinesis.flutter_adm;
 
 import android.app.Notification;
 import android.app.NotificationManager;
