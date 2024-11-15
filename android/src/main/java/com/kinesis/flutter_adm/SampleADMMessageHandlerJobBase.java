@@ -42,10 +42,10 @@ public class SampleADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     {
         Log.i(TAG, "SampleADMMessageHandlerJobBase:onMessage");
 
-        final String json_dat_msg_key = 'message';
-        final String json_data_time_key = 'timeStamp';
-        final String intent_msg_action = 'com.amazon.sample.admmessenger.ON_MESSAGE';
-        final String intent_msg_category = 'com.amazon.sample.admmessenger.MSG_CATEGORY';
+        final String json_dat_msg_key = "message";
+        final String json_data_time_key = "timeStamp";
+        final String intent_msg_action = "com.amazon.sample.admmessenger.ON_MESSAGE";
+        final String intent_msg_category = "com.amazon.sample.admmessenger.MSG_CATEGORY";
 
         /* String to access message field from data JSON. */
         final String msgKey = json_dat_msg_key;
