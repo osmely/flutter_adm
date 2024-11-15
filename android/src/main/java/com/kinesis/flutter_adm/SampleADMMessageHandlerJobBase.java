@@ -4,7 +4,7 @@
  * (c) 2019, Amazon.com, Inc. or its affiliates. All Rights Reserved.
  */
 
-package com.knesis.kchat;
+package com.kinesis.flutter_adm;
 
 import android.content.Context;
 import android.content.Intent;
