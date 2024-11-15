@@ -36,10 +36,11 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getPlatformVersion")) {
 
-  
-      if (adm.getRegistrationId() == null)
-      {
+      final String id = adm.getRegistrationId();
+      if (id == null){
           adm.startRegister();
+      }else{
+          result.success(id);    
       }
 
       result.success("Android " + android.os.Build.VERSION.RELEASE);
