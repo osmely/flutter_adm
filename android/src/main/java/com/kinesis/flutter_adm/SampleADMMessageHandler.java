@@ -63,7 +63,6 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
         /* Extras that were included in the intent. */
         final Bundle extras = intent.getExtras();
 
-        verifyMD5Checksum(extras);
         
         /* Extract message from the extras in the intent. */
         final String msg = extras.getString(msgKey);
@@ -94,40 +93,6 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
 
     }
 
-    /**
-     * This method verifies the MD5 checksum of the ADM message.
-     * 
-     * @param extras Extra that was included with the intent.
-     */
-    private void verifyMD5Checksum(final Bundle extras) 
-    {
-        /* String to access consolidation key field from data JSON. */
-        final String consolidationKey = getString(R.string.json_data_consolidation_key);
-        
-        final Set<String> extrasKeySet = extras.keySet();
-        final Map<String, String> extrasHashMap = new HashMap<String, String>();
-        for (String key : extrasKeySet)
-        {
-            if (!key.equals(ADMConstants.EXTRA_MD5) && !key.equals(consolidationKey))
-            {
-                extrasHashMap.put(key, extras.getString(key));
-            }            
-        }
-        final String md5 = ADMSampleMD5ChecksumCalculator.calculateChecksum(extrasHashMap);
-        Log.i(TAG, "SampleADMMessageHandler:onMessage App md5: " + md5);
-        
-        /* Extract md5 from the extras in the intent. */
-        final String admMd5 = extras.getString(ADMConstants.EXTRA_MD5);
-        Log.i(TAG, "SampleADMMessageHandler:onMessage ADM md5: " + admMd5);
-        
-        /* Data integrity check. */
-        if(!admMd5.trim().equals(md5.trim()))
-        {
-            Log.w(TAG, "SampleADMMessageHandler:onMessage MD5 checksum verification failure. " +
-            		"Message received with errors");
-        }
-    }
-
     /** {@inheritDoc} */
     @Override
     protected void onRegistrationError(final String string)
@@ -142,9 +107,7 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
         Log.i(TAG, "SampleADMMessageHandler:onRegistered");
         Log.i(TAG, registrationId);
 
-        /* Register the app instance's registration ID with your server. */
-        MyServerMsgHandler srv = new MyServerMsgHandler();
-        srv.registerAppInstance(getApplicationContext(), registrationId);
+
     }
 
     /** {@inheritDoc} */
@@ -153,9 +116,7 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
     {
         Log.i(TAG, "SampleADMMessageHandler:onUnregistered");
 
-        /* Unregister the app instance's registration ID with your server. */
-        MyServerMsgHandler srv = new MyServerMsgHandler();
-        srv.unregisterAppInstance(getApplicationContext(), registrationId);
+
     }
     @Override
     protected void onSubscribe(final String topic) {
