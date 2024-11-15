@@ -7,7 +7,7 @@
 package com.kinesis.flutter_adm;
 
 import com.amazon.device.messaging.ADMMessageReceiver;
-import com.kinesis.flutter_adm.SampleADMMessageHandler;
+
 
 /**
  * The SampleADMMessageReceiver class listens for messages from ADM and forwards them.

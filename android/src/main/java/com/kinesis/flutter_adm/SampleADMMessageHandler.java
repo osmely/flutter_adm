@@ -4,7 +4,7 @@
  * (c) 2019, Amazon.com, Inc. or its affiliates. All Rights Reserved.
  */
 
-package com.knesis.flutter_adm;
+package com.kinesis.flutter_adm;
 
 import android.content.Intent;
 import android.os.Bundle;
