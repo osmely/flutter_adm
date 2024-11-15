@@ -51,14 +51,20 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
     {
         Log.i(TAG, "SampleADMMessageHandler:onMessage");
 
+        final String json_dat_msg_key = 'message';
+        final String json_data_time_key = 'timeStamp';
+        final String intent_msg_action = 'com.amazon.sample.admmessenger.ON_MESSAGE';
+        final String intent_msg_category = 'com.amazon.sample.admmessenger.MSG_CATEGORY';
+
+
         /* String to access message field from data JSON. */
-        final String msgKey = getString(R.string.json_data_msg_key);
+        final String msgKey = json_dat_msg_key;
 
         /* String to access timeStamp field from data JSON. */
-        final String timeKey = getString(R.string.json_data_time_key);
-        
+        final String timeKey = json_data_time_key;
+
         /* Intent action that will be triggered in onMessage() callback. */
-        final String intentAction = getString(R.string.intent_msg_action);
+        final String intentAction = intent_msg_action;
 
         /* Extras that were included in the intent. */
         final Bundle extras = intent.getExtras();
@@ -79,7 +85,7 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
         ADMHelper.createADMNotification(this, msgKey, timeKey, intentAction, msg, time);
 
         /* Intent category that will be triggered in onMessage() callback. */
-        final String msgCategory = getString(R.string.intent_msg_category);
+        final String msgCategory = intent_msg_category;
         
         /* Broadcast an intent to update the app UI with the message. */
         /* The broadcast receiver will only catch this intent if the app is within the onResume state of its lifecycle. */
