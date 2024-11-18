@@ -4,3 +4,4 @@
 -keep public class * extends com.amazon.device.messaging.ADMMessageReceiver
 -keep public class * extends com.amazon.device.messaging.ADMMessageHandlerBase
 -keep public class * extends com.amazon.device.messaging.ADMMessageHandlerJobBase
+-keep public class * extends com.amazon.device.messaging.ADM
