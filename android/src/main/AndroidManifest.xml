@@ -1,31 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:amazon="http://schemas.amazon.com/apk/res/android"
   package="com.kinesis.flutter_adm">
-
-
-
-        
-        <service
-            android:name="com.kinesis.flutter_adm.SampleADMMessageHandler"
-            android:exported="false" />
-
-        
-        <service android:name="com.kinesis.flutter_adm.SampleADMMessageHandlerJobBase"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
-
-        <amazon:enable-feature android:name="com.amazon.device.messaging"
-            android:required="false" />
-
-        <receiver
-            android:name="com.kinesis.flutter_adm.SampleADMMessageReceiver"
-            android:exported="false"
-            android:permission="com.amazon.device.messaging.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
-                <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
-                <category android:name="com.kinesis.flutter_adm" />
-            </intent-filter>
-        </receiver>
-
 </manifest>
