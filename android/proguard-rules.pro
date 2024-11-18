@@ -1,2 +1,6 @@
--keep class com.kinesis.flutter_adm.** { *; }
--dontwarn com.amazon.device.messaging.ADM
+-libraryjars libs
+-dontwarn com.amazon.device.messaging.**
+-keep class com.amazon.device.messaging.** {*;}
+-keep public class * extends com.amazon.device.messaging.ADMMessageReceiver
+-keep public class * extends com.amazon.device.messaging.ADMMessageHandlerBase
+-keep public class * extends com.amazon.device.messaging.ADMMessageHandlerJobBase
