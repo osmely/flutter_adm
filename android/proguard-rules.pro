@@ -1,1 +1,2 @@
+-keep class com.kinesis.flutter_adm.** { *; }
 -dontwarn com.amazon.device.messaging.ADM
