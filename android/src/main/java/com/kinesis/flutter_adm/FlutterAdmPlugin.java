@@ -3,7 +3,7 @@ package com.kinesis.flutter_adm;
 import androidx.annotation.NonNull;
 import android.content.Context;
 import android.content.Intent;
-
+import android.util.Log;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -11,6 +11,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import com.amazon.device.messaging.ADM;
+
 
 /** FlutterAdmPlugin */
 public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
@@ -46,12 +47,11 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     
     }else if(call.method.equals("suscribeToTopic")){
 
-
       final String id = adm.getRegistrationId();
       if (id == null){
 
-        Map<String, Object> args = call.arguments();
-        String topic = args.getString("topic");
+        var callArgs: HashMap<String, Any> = call.arguments as HashMap<String, Any>
+        String topic = callArgs["topic"] as String;
 
         Log.d("FlutterAdmPlugin", "Received topic: " + topic);
           
