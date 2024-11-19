@@ -30,20 +30,29 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
     context = flutterPluginBinding.getApplicationContext();
     adm = new ADM(context);
+    adm.startRegister();
   }
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("getPlatformVersion")) {
+    if (call.method.equals("getRegistrationId")) {
 
       final String id = adm.getRegistrationId();
       if (id == null){
-          adm.startRegister();
-          result.success("Android " + android.os.Build.VERSION.RELEASE);
+          result.error("No registrado");
       }else{
           result.success(id);    
       }
+    
+    }else if(call.method.equals("suscribeToTopic")){
 
+      final String id = adm.getRegistrationId();
+      if (id == null){
+          adm.
+          result.success("Android " + android.os.Build.VERSION.RELEASE);
+      }else{
+        result.error("RegistrationId null");
+      }
       
     } else {
       result.notImplemented();

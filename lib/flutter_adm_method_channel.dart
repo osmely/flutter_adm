@@ -10,8 +10,8 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   final methodChannel = const MethodChannel('flutter_adm');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<String?> getRegistrationId() async {
+    final id = await methodChannel.invokeMethod<String>('getRegistrationId');
+    return id;
   }
 }
