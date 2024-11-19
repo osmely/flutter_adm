@@ -7,7 +7,7 @@ import 'flutter_adm_platform_interface.dart';
 class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('flutter_adm_plugin');
+  final methodChannel = const MethodChannel('flutter_adm');
 
   @override
   Future<void> initialize() async {
