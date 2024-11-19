@@ -111,8 +111,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
   public void onStartRegister() {
 
       Log.d(TAG, "startRegister....");
-      adm.startRegister();
-
+      
       final String json_dat_msg_key = "message";
         final String json_data_time_key = "timeStamp";
         final String intent_msg_action = "com.amazon.sample.admmessenger.ON_MESSAGE";
@@ -133,7 +132,11 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
       msgReceiver = createBroadcastReceiver(msgKey, timeKey);
       final IntentFilter messageIntentFilter= new IntentFilter(intentAction);
       messageIntentFilter.addCategory(msgCategory);
-      this.activity.registerReceiver(msgReceiver, messageIntentFilter);    
+      this.activity.registerReceiver(msgReceiver, messageIntentFilter); 
+
+
+      adm.startRegister();
+   
   }
 
 
