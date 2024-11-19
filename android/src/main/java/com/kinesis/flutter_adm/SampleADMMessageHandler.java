@@ -103,15 +103,15 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
     @Override
     protected void onRegistrationError(final String string)
     {
-        Log.e(TAG, "SampleADMMessageHandler:onRegistrationError " + string);
+        Log.d(TAG, "SampleADMMessageHandler:onRegistrationError " + string);
     }
 
     /** {@inheritDoc} */
     @Override
     protected void onRegistered(final String registrationId) 
     {
-        Log.i(TAG, "SampleADMMessageHandler:onRegistered");
-        Log.i(TAG, registrationId);
+        Log.d(TAG, "SampleADMMessageHandler:onRegistered");
+        Log.d(TAG, registrationId);
 
 
     }
@@ -120,27 +120,27 @@ public class SampleADMMessageHandler extends ADMMessageHandlerBase
     @Override
     protected void onUnregistered(final String registrationId) 
     {
-        Log.i(TAG, "SampleADMMessageHandler:onUnregistered");
+        Log.d(TAG, "SampleADMMessageHandler:onUnregistered");
 
 
     }
     @Override
     protected void onSubscribe(final String topic) {
-        Log.i(TAG, "onSubscribe: " + topic);
+        Log.d(TAG, "onSubscribe: " + topic);
     }
 
     @Override
     protected void onSubscribeError(final String topic, final String errorId) {
-        Log.i(TAG, "onSubscribeError: errorId: " + errorId + " topic: " + topic);
+        Log.d(TAG, "onSubscribeError: errorId: " + errorId + " topic: " + topic);
     }
 
     @Override
     protected void onUnsubscribe(final String topic) {
-        Log.i(TAG, "onUnsubscribe: " + topic);
+        Log.d(TAG, "onUnsubscribe: " + topic);
     }
 
     @Override
     protected void onUnsubscribeError(final String topic, final String errorId) {
-        Log.i(TAG, "onUnsubscribeError: errorId: " + errorId + " topic: " + topic);
+        Log.d(TAG, "onUnsubscribeError: errorId: " + errorId + " topic: " + topic);
     }
 }

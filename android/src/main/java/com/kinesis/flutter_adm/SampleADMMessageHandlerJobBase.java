@@ -95,15 +95,15 @@ public class SampleADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     @Override
     protected void onRegistrationError(final Context context, final String string)
     {
-        Log.e(TAG, "SampleADMMessageHandlerJobBase:onRegistrationError " + string);
+        Log.d(TAG, "SampleADMMessageHandlerJobBase:onRegistrationError " + string);
     }
 
     /** {@inheritDoc} */
     @Override
     protected void onRegistered(final Context context, final String registrationId)
     {
-        Log.i(TAG, "SampleADMMessageHandlerJobBase:onRegistered");
-        Log.i(TAG, registrationId);
+        Log.d(TAG, "SampleADMMessageHandlerJobBase:onRegistered");
+        Log.d(TAG, registrationId);
 
         // /* Register the app instance's registration ID with your server. */
         // MyServerMsgHandler srv = new MyServerMsgHandler();
