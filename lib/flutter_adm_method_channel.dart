@@ -17,7 +17,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   @override
   Future suscribeToTopic(String topic) async {
-    await methodChannel.invokeMethod('suscribeToTopic', <String, dynamic>{
+    await methodChannel.invokeMethod('suscribeToTopic': {
     'topic': topic,
     });
   }
