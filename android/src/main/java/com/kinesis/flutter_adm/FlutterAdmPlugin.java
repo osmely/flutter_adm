@@ -5,6 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -49,9 +56,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
       final String id = adm.getRegistrationId();
       if (id == null){
-
-        HashMap<String, Object> argsMap = (HashMap<String, Object>) call.arguments;
-        String topic = argsMap.get("topic");
+        
+        final String topic = call.argument("topic");
 
         Log.d("FlutterAdmPlugin", "Received topic: " + topic);
           
