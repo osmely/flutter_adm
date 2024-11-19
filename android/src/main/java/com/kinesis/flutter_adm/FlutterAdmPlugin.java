@@ -133,7 +133,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
       msgReceiver = createBroadcastReceiver(msgKey, timeKey);
       final IntentFilter messageIntentFilter= new IntentFilter(intentAction);
       messageIntentFilter.addCategory(msgCategory);
-      this.registerReceiver(msgReceiver, messageIntentFilter);    
+      this.activity.registerReceiver(msgReceiver, messageIntentFilter);    
   }
 
 
