@@ -5,7 +5,7 @@
  */
 
 package com.kinesis.flutter_adm;
-
+import android.util.Log;
 import com.amazon.device.messaging.ADMMessageReceiver;
 
 
@@ -18,7 +18,7 @@ public class SampleADMMessageReceiver extends ADMMessageReceiver {
     public SampleADMMessageReceiver() {
         super(SampleADMMessageHandler.class);
 
-        log.d("::::::SampleADMMessageReceiver ");
+        Log.d("SampleADMMessageReceiver", "::::::SampleADMMessageReceiver....");
 
         if(ADMHelper.IS_ADM_V2) {
             registerJobServiceClass(SampleADMMessageHandlerJobBase.class, ADMHelper.JOB_ID);
