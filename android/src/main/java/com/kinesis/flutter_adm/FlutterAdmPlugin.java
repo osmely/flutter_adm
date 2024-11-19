@@ -48,7 +48,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
       final String id = adm.getRegistrationId();
       if (id == null){
-          adm.
+          
           result.success("Android " + android.os.Build.VERSION.RELEASE);
       }else{
         result.error("RegistrationId null", "", null);
