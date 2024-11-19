@@ -16,4 +16,8 @@ abstract class FlutterAdmPlatform extends PlatformInterface {
   Future<String?> getRegistrationId() {
     throw UnimplementedError('getRegistrationId() has not been implemented.');
   }
+
+  Future suscribeToTopic(String topic) {
+    throw UnimplementedError('suscribeToTopic() has not been implemented.');
+  }
 }

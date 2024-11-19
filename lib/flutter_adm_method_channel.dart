@@ -14,4 +14,12 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
     final id = await methodChannel.invokeMethod<String>('getRegistrationId');
     return id;
   }
+
+  @override
+  Future suscribeToTopic(String topic) {
+
+    await platform.invokeMethod('suscribeToTopic', <String, dynamic>{
+    'topic': topic,
+    });
+  }
 }
