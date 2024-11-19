@@ -50,8 +50,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
       final String id = adm.getRegistrationId();
       if (id == null){
 
-        var callArgs: HashMap<String, Any> = call.arguments as HashMap<String, Any>;
-        String topic = callArgs["topic"] as String;
+        HashMap<String, Object> argsMap = (HashMap<String, Object>) call.arguments;
+        String topic = argsMap.get("topic");
 
         Log.d("FlutterAdmPlugin", "Received topic: " + topic);
           
