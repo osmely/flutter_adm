@@ -150,6 +150,9 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
             @Override
             public void onReceive(final Context context, final Intent broadcastIntent)
             {
+
+              Log.d(TAG, "onReceive....");
+
                 if(broadcastIntent != null){
 
                     /* Extract message from the extras in the intent. */
