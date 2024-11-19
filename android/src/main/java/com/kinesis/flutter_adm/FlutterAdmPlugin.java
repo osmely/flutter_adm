@@ -30,6 +30,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
   private ADM adm;
   private Context context;
 
+  private final static String TAG = "FlutterAdmPlugin";
+
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -47,7 +49,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
       final String id = adm.getRegistrationId();
       if (id == null){
-          result.error("1", "No registrado", null);
+          result.error("1", "getRegistrationId -> id==null", null);
       }else{
           result.success(id);    
       }
@@ -55,12 +57,14 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     }else if(call.method.equals("suscribeToTopic")){
 
       final String id = adm.getRegistrationId();
+      
       if (id != null){
         final String topic = call.argument("topic");
-        Log.d("FlutterAdmPlugin", "Received topic: " + topic);
-        result.success("Android " + android.os.Build.VERSION.RELEASE);
+        Log.d(TAG, "suscribeToTopic topic: " + topic);
+        adm.subscribeToTopic(topic);
+
       }else{
-        result.error("2", "RegistrationId null", null);
+        result.error("2", "suscribeToTopic -> RegistrationId null", null);
       }
       
     } else {
