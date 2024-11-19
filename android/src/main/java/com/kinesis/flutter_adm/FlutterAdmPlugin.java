@@ -3,6 +3,11 @@ package com.kinesis.flutter_adm;
 import androidx.annotation.NonNull;
 import android.content.Context;
 import android.content.Intent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+
 import android.util.Log;
 
 import java.io.IOException;
@@ -29,7 +34,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
   private MethodChannel channel;
   private ADM adm;
   private Context context;
-
+  private BroadcastReceiver msgReceiver;
   private final static String TAG = "FlutterAdmPlugin";
 
 
@@ -40,7 +45,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
     context = flutterPluginBinding.getApplicationContext();
     adm = new ADM(context);
-    adm.startRegister();
+    
   }
 
   @Override
@@ -68,12 +73,70 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
       }
       
     }else if(call.method.equals("startRegister")){
-      Log.d(TAG, "startRegister....");
-      adm.startRegister();
+      this.onStartRegister();
 
+      
     } else {
       result.notImplemented();
     }
+  }
+
+  public void onStartRegister() {
+
+      Log.d(TAG, "startRegister....");
+      adm.startRegister();
+
+      final String json_dat_msg_key = "message";
+        final String json_data_time_key = "timeStamp";
+        final String intent_msg_action = "com.amazon.sample.admmessenger.ON_MESSAGE";
+        final String intent_msg_category = "com.amazon.sample.admmessenger.MSG_CATEGORY";
+
+
+        /* String to access message field from data JSON. */
+        final String msgKey = json_dat_msg_key;
+
+        /* String to access timeStamp field from data JSON. */
+        final String timeKey = json_data_time_key;
+
+        /* Intent action that will be triggered in onMessage() callback. */
+        final String intentAction = intent_msg_action;
+        final String msgCategory = intent_msg_category;
+
+
+      msgReceiver = createBroadcastReceiver(msgKey, timeKey);
+      final IntentFilter messageIntentFilter= new IntentFilter(intentAction);
+      messageIntentFilter.addCategory(msgCategory);
+      this.registerReceiver(msgReceiver, messageIntentFilter);    
+  }
+
+
+   private BroadcastReceiver createBroadcastReceiver(final String msgKey,
+            final String timeKey) 
+    {
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
+        {
+
+            /** {@inheritDoc} */
+            @Override
+            public void onReceive(final Context context, final Intent broadcastIntent)
+            {
+                if(broadcastIntent != null){
+
+                    /* Extract message from the extras in the intent. */
+                    final String msg = broadcastIntent.getStringExtra(msgKey);
+                    final String srvTimeStamp = broadcastIntent.getStringExtra(timeKey);
+
+                    if (msg != null && srvTimeStamp != null)
+                    {
+                        Log.d(TAG, msg);
+                    }else{
+                      Log.d(TAG, msg);
+                    }
+
+                }
+            }
+        };
+        return broadcastReceiver;
   }
 
   @Override
