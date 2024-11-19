@@ -39,7 +39,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
       final String id = adm.getRegistrationId();
       if (id == null){
-          result.error("No registrado");
+          result.error("No registrado", "", null);
       }else{
           result.success(id);    
       }
@@ -51,7 +51,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
           adm.
           result.success("Android " + android.os.Build.VERSION.RELEASE);
       }else{
-        result.error("RegistrationId null");
+        result.error("RegistrationId null", "", null);
       }
       
     } else {
