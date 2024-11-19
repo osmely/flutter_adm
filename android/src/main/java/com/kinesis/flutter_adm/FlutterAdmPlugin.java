@@ -22,11 +22,14 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+
 import com.amazon.device.messaging.ADM;
 
 
 /** FlutterAdmPlugin */
-public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
+public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -36,6 +39,30 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
   private Context context;
   private BroadcastReceiver msgReceiver;
   private final static String TAG = "FlutterAdmPlugin";
+  private Activity activity;
+
+
+  @Override
+  public void onAttachedToActivity(ActivityPluginBinding activityPluginBinding) {
+        // TODO: your plugin is now attached to an Activity
+        this.activity = activityPluginBinding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+        // TODO: the Activity your plugin was attached to was destroyed to change configuration.
+        // This call will be followed by onReattachedToActivityForConfigChanges().
+    }
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
+        // TODO: your plugin is now attached to a new Activity after a configuration change.
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+        // TODO: your plugin is no longer associated with an Activity. Clean up references.
+    }
 
 
   @Override
