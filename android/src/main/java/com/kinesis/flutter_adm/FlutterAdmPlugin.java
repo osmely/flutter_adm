@@ -39,7 +39,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
   private Context context;
   private BroadcastReceiver msgReceiver;
   private final static String TAG = "FlutterAdmPlugin";
-  @Nullable private Activity activity;
+  private Activity activity;
 
 
   @Override
