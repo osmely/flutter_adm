@@ -1,3 +1,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.kinesis.flutter_adm">
+    package="com.kinesis.flutter_adm">
+
+    <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <permission
+        android:name="com.kinesis.flutter_adm.permission.RECEIVE_ADM_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.kinesis.flutter_adm.permission.RECEIVE_ADM_MESSAGE" />
+
+    <application>
+        <service
+            android:name=".ADMMessageHandlerService"
+            android:exported="false" />
+
+        <receiver
+            android:name=".ADMRegistrationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
+                <category android:name="com.kinesis.flutter_adm" />
+            </intent-filter>
+        </receiver>
+    </application>
 </manifest>

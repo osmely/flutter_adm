@@ -16,8 +16,10 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://maven.amazonaws.com" }
     }
 }
+
 
 apply plugin: 'com.android.library'
 
@@ -40,8 +42,10 @@ android {
     dependencies {
         testImplementation 'junit:junit:4.13.2'
         testImplementation 'org.mockito:mockito-core:5.0.0'
-        compileOnly files('libs/amazon-device-messaging-1.2.0.jar')
+        implementation 'com.amazon.device.messaging:adm:3.0.+'
     }
+
+
 
     testOptions {
         unitTests.all {

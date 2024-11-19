@@ -7,23 +7,28 @@ import 'flutter_adm_platform_interface.dart';
 class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('flutter_adm');
+  final methodChannel = const MethodChannel('flutter_adm_plugin');
 
   @override
-  Future<String?> getRegistrationId() async {
-    final id = await methodChannel.invokeMethod<String>('getRegistrationId');
-    return id;
+  Future<void> initialize() async {
+    await _channel.invokeMethod('initialize');
   }
 
   @override
-  Future suscribeToTopic(String topic) async {
-    await methodChannel.invokeMethod('suscribeToTopic', {
-    'topic': topic,
+  void setOnRegistrationId(Function(String) callback) {
+    _channel.setMethodCallHandler((call) async {
+      if (call.method == 'onRegistrationId') {
+        callback(call.arguments as String);
+      }
     });
   }
 
   @override
-  void startRegister() { 
-    methodChannel.invokeMethod('startRegister');
+  void setOnMessage(Function(String) callback) {
+    _channel.setMethodCallHandler((call) async {
+      if (call.method == 'onMessage') {
+        callback(call.arguments as String);
+      }
+    });
   }
 }
