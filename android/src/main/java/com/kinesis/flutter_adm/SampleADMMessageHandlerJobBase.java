@@ -44,8 +44,8 @@ public class SampleADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
         final String json_dat_msg_key = "message";
         final String json_data_time_key = "timeStamp";
-        final String intent_msg_action = "com.amazon.sample.admmessenger.ON_MESSAGE";
-        final String intent_msg_category = "com.amazon.sample.admmessenger.MSG_CATEGORY";
+        final String intentAction = "com.amazon.device.messaging.intent.REGISTRATION";
+            final String msgCategory = "com.kinesis.flutter_adm";
 
         /* String to access message field from data JSON. */
         final String msgKey = json_dat_msg_key;
@@ -53,8 +53,6 @@ public class SampleADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         /* String to access timeStamp field from data JSON. */
         final String timeKey = json_data_time_key;
 
-        /* Intent action that will be triggered in onMessage() callback. */
-        final String intentAction = intent_msg_action;
 
         /* Extras that were included in the intent. */
         final Bundle extras = intent.getExtras();
@@ -75,8 +73,6 @@ public class SampleADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         /* This is required to test cases where the app or device may be off. */
         ADMHelper.createADMNotification(context, msgKey, timeKey, intentAction, msg, time);
 
-        /* Intent category that will be triggered in onMessage() callback. */
-        final String msgCategory = intent_msg_category;
 
         /* Broadcast an intent to update the app UI with the message. */
         /* The broadcast receiver will only catch this intent if the app is within the onResume state of its lifecycle. */
