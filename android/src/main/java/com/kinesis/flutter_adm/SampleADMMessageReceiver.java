@@ -16,6 +16,9 @@ import com.amazon.device.messaging.ADMMessageReceiver;
  */
 public class SampleADMMessageReceiver extends ADMMessageReceiver {
     public SampleADMMessageReceiver() {
+        
+        System.out.println("::::::SampleADMMessageReceiver ");
+
         super(SampleADMMessageHandler.class);
         if(ADMHelper.IS_ADM_V2) {
             registerJobServiceClass(SampleADMMessageHandlerJobBase.class, ADMHelper.JOB_ID);
