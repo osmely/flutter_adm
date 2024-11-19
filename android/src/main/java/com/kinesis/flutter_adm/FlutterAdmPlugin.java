@@ -114,22 +114,10 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
       
       final String json_dat_msg_key = "message";
       final String json_data_time_key = "timeStamp";
-        final String intent_msg_action = "com.knesis.kchat.ON_MESSAGE";
-        final String intent_msg_category = "com.knesis.kchat.MSG_CATEGORY";
+      final String intentAction = "com.amazon.device.messaging.intent.REGISTRATION";
+      final String msgCategory = "com.kinesis.flutter_adm";
 
-
-        /* String to access message field from data JSON. */
-        final String msgKey = json_dat_msg_key;
-
-        /* String to access timeStamp field from data JSON. */
-        final String timeKey = json_data_time_key;
-
-        /* Intent action that will be triggered in onMessage() callback. */
-        final String intentAction = intent_msg_action;
-        final String msgCategory = intent_msg_category;
-
-
-      msgReceiver = createBroadcastReceiver(msgKey, timeKey);
+      msgReceiver = createBroadcastReceiver(json_dat_msg_key, json_data_time_key);
       final IntentFilter messageIntentFilter= new IntentFilter(intentAction);
       messageIntentFilter.addCategory(msgCategory);
       this.activity.registerReceiver(msgReceiver, messageIntentFilter); 
