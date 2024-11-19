@@ -140,6 +140,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
    private BroadcastReceiver createBroadcastReceiver(final String msgKey,
             final String timeKey) 
     {
+
+      log.d("::::::createBroadcastReceiver ");
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
         {
 

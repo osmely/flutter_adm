@@ -18,8 +18,8 @@ public class SampleADMMessageReceiver extends ADMMessageReceiver {
     public SampleADMMessageReceiver() {
         super(SampleADMMessageHandler.class);
 
-        System.out.println("::::::SampleADMMessageReceiver ");
-        
+        log.d("::::::SampleADMMessageReceiver ");
+
         if(ADMHelper.IS_ADM_V2) {
             registerJobServiceClass(SampleADMMessageHandlerJobBase.class, ADMHelper.JOB_ID);
         }
