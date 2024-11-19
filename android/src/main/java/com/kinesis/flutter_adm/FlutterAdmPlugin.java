@@ -55,12 +55,9 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     }else if(call.method.equals("suscribeToTopic")){
 
       final String id = adm.getRegistrationId();
-      if (id == null){
-        
+      if (id != null){
         final String topic = call.argument("topic");
-
         Log.d("FlutterAdmPlugin", "Received topic: " + topic);
-          
         result.success("Android " + android.os.Build.VERSION.RELEASE);
       }else{
         result.error("2", "RegistrationId null", null);
