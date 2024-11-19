@@ -21,4 +21,9 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
     'topic': topic,
     });
   }
+
+  @override
+  void startRegister() { 
+    methodChannel.invokeMethod('startRegister');
+  }
 }

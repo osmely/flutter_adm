@@ -9,4 +9,8 @@ class FlutterAdm {
   Future suscribeToTopic(String topic) {
     return FlutterAdmPlatform.instance.suscribeToTopic(topic);
   }
+
+  void startRegister(){
+    FlutterAdmPlatform.instance.startRegister();
+  }
 }

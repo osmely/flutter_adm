@@ -67,6 +67,10 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         result.error("2", "suscribeToTopic -> RegistrationId null", null);
       }
       
+    }else if(call.method.equals("startRegister")){
+      Log.d(TAG, "startRegister....");
+      adm.startRegister();
+
     } else {
       result.notImplemented();
     }
