@@ -11,11 +11,13 @@ import io.flutter.plugin.common.MethodChannel.Result;
 /** FlutterAdmPlugin */
 public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
    private static MethodChannel channel;
+   private Context applicationContext;
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
-        channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_adm");
-        channel.setMethodCallHandler(this);
+        applicationContext = binding.getApplicationContext(); 
+        FlutterAdmPlugin.channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_adm");
+        FlutterAdmPlugin.channel.setMethodCallHandler(this);
     }
 
     @Override
@@ -25,6 +27,17 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
         if (call.method.equals("initialize")) {
             // Inicializar ADM
+
+            ADM adm = new ADM(this.applicationContext);
+            Log.d("FlutterAdmPlugin",":::: onReceive ::::");
+
+            if (adm.isSupported()) {
+                Log.d("FlutterAdmPlugin",":::: isSupported TRUE ::::");
+                adm.startRegister();
+            }else{
+                Log.d("FlutterAdmPlugin",":::: isSupported FALSE ::::");
+            }
+
             result.success(null);
         } else {
             result.notImplemented();
@@ -33,14 +46,14 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        channel.setMethodCallHandler(null);
+        FlutterAdmPlugin.channel.setMethodCallHandler(null);
     }
 
     public static void sendRegistrationIdToDart(String registrationId) {
         Log.d("sendRegistrationIdToDart",":::: -> " + registrationId);
 
-        if (channel != null) {
-            channel.invokeMethod("onRegistrationId", registrationId);
+        if (FlutterAdmPlugin.channel != null) {
+            FlutterAdmPlugin.channel.invokeMethod("onRegistrationId", registrationId);
         }
     }
 
@@ -48,8 +61,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
         Log.d("sendMessageToDart",":::: -> " + message);
 
-        if (channel != null) {
-            channel.invokeMethod("onMessage", message);
+        if (FlutterAdmPlugin.channel != null) {
+            FlutterAdmPlugin.channel.invokeMethod("onMessage", message);
         }
     }
 }
