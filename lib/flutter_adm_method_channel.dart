@@ -17,6 +17,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   @override
   void setOnRegistrationId(Function(String) callback) {
     _channel.setMethodCallHandler((call) async {
+      print('>>> setOnRegistrationId');
       if (call.method == 'onRegistrationId') {
         callback(call.arguments as String);
       }
