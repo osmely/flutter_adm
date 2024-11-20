@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:amazon="http://schemas.amazon.com/apk/res/android"
     package="com.kinesis.flutter_adm">
 
     <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
