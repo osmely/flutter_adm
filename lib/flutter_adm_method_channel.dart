@@ -11,7 +11,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   @override
   Future<void> initialize() {
-    _channel.invokeMethod('initialize');
+    return _channel.invokeMethod('initialize');
   }
 
   @override
