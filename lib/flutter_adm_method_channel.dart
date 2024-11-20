@@ -20,13 +20,13 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
       if (call.method == 'onRegistrationId') {
         if(_onRegistrationCallback != null){
-          _onRegistrationCallback(call.arguments as String);
+          _onRegistrationCallback!(call.arguments as String);
         }
       }
 
       if (call.method == 'onMessage') {
         if(_onMessageCallback != null){
-          _onMessageCallback(call.arguments as String);
+          _onMessageCallback!(call.arguments as String);
         }
       }
 
