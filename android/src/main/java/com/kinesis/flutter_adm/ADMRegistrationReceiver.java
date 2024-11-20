@@ -16,7 +16,9 @@ public class ADMRegistrationReceiver extends BroadcastReceiver {
 
         if (adm.isSupported()) {
             Log.d("ADMRegistrationReceiver",":::: isSupported TRUE ::::");
-            adm.startRegister();
+            String registrationId = adm.getRegistrationId();
+
+            FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
         }else{
             Log.d("ADMRegistrationReceiver",":::: isSupported FALSE ::::");
         }
