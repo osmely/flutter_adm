@@ -16,8 +16,6 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   void initialize() {
 
     _channel.setMethodCallHandler((call) async {
-      print('>>> onCall -> ' + call.method);
-
       if (call.method == 'onRegistrationId') {
         if(_onRegistrationCallback != null){
           _onRegistrationCallback!(call.arguments as String);
@@ -47,5 +45,11 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   @override
   void startRegister(){
     _channel.invokeMethod('startRegister');
+  }
+
+  @override
+  Future<bool> isSupported() async {
+    final bool isSupported = await _channel.invokeMethod('isSupported');
+    return isSupported;
   }
 }

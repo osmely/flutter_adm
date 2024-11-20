@@ -36,8 +36,14 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
         if (call.method.equals("startRegister")) {
             executorService.execute(() -> handleStartRegister(result));
+        
         } else if (call.method.equals("initialize")) {
             executorService.execute(() -> handleInitialize(result));
+        
+        } else if (call.method.equals("isSupported")) {
+            boolean isSupported = adm != null && adm.isSupported();
+            result.success(isSupported); 
+        
         } else {
             result.notImplemented();
         }
@@ -45,12 +51,11 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
     private void handleStartRegister(Result result) {
         if (this.adm.isSupported()) {
-            Log.d("FlutterAdmPlugin", ":::: isSupported TRUE ::::");
             if (this.adm.getRegistrationId() == null) {
                 this.adm.startRegister();
             }
         } else {
-            Log.d("FlutterAdmPlugin", ":::: isSupported FALSE ::::");
+            
         }
 
         // Mover la respuesta al hilo principal
@@ -76,14 +81,12 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     public static void sendRegistrationIdToDart(String registrationId) {
-        Log.d("sendRegistrationIdToDart", ":::: -> " + registrationId);
         if (FlutterAdmPlugin.channel != null) {
             FlutterAdmPlugin.channel.invokeMethod("onRegistrationId", registrationId);
         }
     }
 
     public static void sendMessageToDart(String message) {
-        Log.d("sendMessageToDart", ":::: -> " + message);
         if (FlutterAdmPlugin.channel != null) {
             FlutterAdmPlugin.channel.invokeMethod("onMessage", message);
         }

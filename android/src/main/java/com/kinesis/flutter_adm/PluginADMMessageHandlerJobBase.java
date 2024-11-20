@@ -123,15 +123,13 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     @Override
     protected void onRegistrationError(final Context context, final String string)
     {
-        Log.e(TAG, "PluginADMMessageHandlerJobBase:onRegistrationError " + string);
+        
     }
 
     /** {@inheritDoc} */
     @Override
     protected void onRegistered(final Context context, final String registrationId)
     {
-        Log.i(TAG, "PluginADMMessageHandlerJobBase:onRegistered");
-        Log.i(TAG, registrationId);
         FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
     }
 
@@ -139,29 +137,27 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     @Override
     protected void onUnregistered(final Context context, final String registrationId)
     {
-        Log.i(TAG, "PluginADMMessageHandlerJobBase:onUnregistered");
-
+        
     }
 
     @Override
     protected void onSubscribe(final Context context, final String topic) {
-        Log.i(TAG, "onSubscribe: " + topic);
         
     }
 
     @Override
     protected void onSubscribeError(final Context context, final String topic, final String errorId) {
-        Log.i(TAG, "onSubscribeError: errorId: " + errorId + " topic: " + topic);
+        
     }
 
     @Override
     protected void onUnsubscribe(final Context context, final String topic) {
-        Log.i(TAG, "onUnsubscribe: " + topic);
+        
     }
 
     @Override
     protected void onUnsubscribeError(final Context context, final String topic, final String errorId) {
-        Log.i(TAG, "onUnsubscribeError: errorId: " + errorId + " topic: " + topic);
+        
     }
 
 }

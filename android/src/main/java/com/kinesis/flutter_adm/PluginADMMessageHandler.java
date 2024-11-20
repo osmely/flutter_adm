@@ -139,8 +139,6 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
     @Override
     protected void onRegistered(final String registrationId) 
     {
-        Log.i(TAG, "PluginADMMessageHandler:onRegistered");
-        Log.i(TAG, registrationId);
         FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
     }
 
@@ -148,7 +146,7 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
     @Override
     protected void onUnregistered(final String registrationId) 
     {
-        Log.i(TAG, "PluginADMMessageHandler:onUnregistered");
+     
 
         /* Unregister the app instance's registration ID with your server. */
         // MyServerMsgHandler srv = new MyServerMsgHandler();
@@ -156,21 +154,21 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
     }
     @Override
     protected void onSubscribe(final String topic) {
-        Log.i(TAG, "onSubscribe: " + topic);
+        
     }
 
     @Override
     protected void onSubscribeError(final String topic, final String errorId) {
-        Log.i(TAG, "onSubscribeError: errorId: " + errorId + " topic: " + topic);
+        
     }
 
     @Override
     protected void onUnsubscribe(final String topic) {
-        Log.i(TAG, "onUnsubscribe: " + topic);
+        
     }
 
     @Override
     protected void onUnsubscribeError(final String topic, final String errorId) {
-        Log.i(TAG, "onUnsubscribeError: errorId: " + errorId + " topic: " + topic);
+        
     }
 }

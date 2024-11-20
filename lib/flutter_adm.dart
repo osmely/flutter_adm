@@ -17,4 +17,8 @@ class FlutterAdm {
   void setOnMessage(Function(String) callback) {
     FlutterAdmPlatform.instance.setOnMessage(callback);
   }
+
+  Future<bool> isSupported() async {
+    return FlutterAdmPlatform.instance.isSupported();
+  }
 }
