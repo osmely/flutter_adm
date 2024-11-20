@@ -22,11 +22,11 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         FlutterAdmPlugin.channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_adm");
         FlutterAdmPlugin.channel.setMethodCallHandler(this);
 
-        // Inicia el registro de ADM al adjuntar el plugin
-        ADM adm = new ADM(applicationContext);
-        if (adm.isSupported()) {
-            adm.startRegister(); // Esto asegura que el registro siempre se inicia al menos una vez
-        }
+        // // Inicia el registro de ADM al adjuntar el plugin
+        // ADM adm = new ADM(applicationContext);
+        // if (adm.isSupported()) {
+        //     adm.startRegister(); // Esto asegura que el registro siempre se inicia al menos una vez
+        // }
     }
 
     @Override

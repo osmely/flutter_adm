@@ -9,6 +9,9 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   @visibleForTesting
   final _channel = const MethodChannel('flutter_adm');
 
+  Function(String)? _onRegistrationCallback;
+  Function(String)? _onMessageCallback;
+
   @override
   Future<void> initialize() {
     return _channel.invokeMethod('initialize');
