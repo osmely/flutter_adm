@@ -8,6 +8,7 @@ public class ADMMessageHandlerService extends ADMMessageHandlerBase {
 
     public ADMMessageHandlerService() {
         super(ADMMessageHandlerService.class.getName());
+        Log.d("ADMMessageHandlerService",":::: CONSTRUCTOR ::::");
     }
 
     @Override
