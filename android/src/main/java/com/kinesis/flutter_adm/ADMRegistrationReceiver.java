@@ -11,16 +11,20 @@ import com.amazon.device.messaging.ADM;
 public class ADMRegistrationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        // Instancia de ADM
         ADM adm = new ADM(context);
-        Log.d("ADMRegistrationReceiver",":::: onReceive ::::");
 
-        if (adm.isSupported()) {
-            Log.d("ADMRegistrationReceiver",":::: isSupported TRUE ::::");
-            String registrationId = adm.getRegistrationId();
-
-            FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
-        }else{
-            Log.d("ADMRegistrationReceiver",":::: isSupported FALSE ::::");
+        // Verifica si el registro ya está completo
+        String registrationId = adm.getRegistrationId();
+        if (registrationId == null) {
+            // Si no está registrado, inicia el registro
+            if (adm.isSupported()) {
+                adm.startRegister();
+            } else {
+                System.out.println("ADM no es compatible con este dispositivo.");
+            }
+        } else {
+            System.out.println("ADM ya está registrado con ID: " + registrationId);
         }
     }
 }
