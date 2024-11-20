@@ -31,14 +31,14 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         if (call.method.equals("initialize")) {
             // Inicializar ADM
 
-            ADM adm = new ADM(this.applicationContext);
+            // ADM adm = new ADM(this.applicationContext);
             
-            if (adm.isSupported()) {
-                Log.d("FlutterAdmPlugin",":::: isSupported TRUE ::::");
-                adm.startRegister();
-            }else{
-                Log.d("FlutterAdmPlugin",":::: isSupported FALSE ::::");
-            }
+            // if (adm.isSupported()) {
+            //     Log.d("FlutterAdmPlugin",":::: isSupported TRUE ::::");
+            //     adm.startRegister();
+            // }else{
+            //     Log.d("FlutterAdmPlugin",":::: isSupported FALSE ::::");
+            // }
 
             result.success(null);
         } else {
