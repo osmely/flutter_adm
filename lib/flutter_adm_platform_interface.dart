@@ -14,7 +14,12 @@ abstract class FlutterAdmPlatform extends PlatformInterface {
   }
 
 
-  Future<void> initialize() async {
+  void startRegister(){
+    throw UnimplementedError('startRegister() has not been implemented.');
+  }
+
+
+  void initialize() {
     throw UnimplementedError('getRegistrationId() has not been implemented.');
   }
 
@@ -25,5 +30,7 @@ abstract class FlutterAdmPlatform extends PlatformInterface {
   void setOnMessage(Function(String) callback) {
     throw UnimplementedError('setOnMessage() has not been implemented.');
   }
+
+  
 
 }

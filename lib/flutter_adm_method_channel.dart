@@ -13,7 +13,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   Function(String)? _onMessageCallback;
 
   @override
-  Future<void> initialize() {
+  void initialize() {
 
     _channel.setMethodCallHandler((call) async {
       print('>>> onCall -> ' + call.method);
@@ -29,10 +29,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
           _onMessageCallback!(call.arguments as String);
         }
       }
-
     });
-
-    return _channel.invokeMethod('initialize');
   }
 
   @override
@@ -43,5 +40,10 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   @override
   void setOnMessage(Function(String) callback) {
     _onMessageCallback = callback;
+  }
+
+  @override
+  void startRegister(){
+    return _channel.invokeMethod('startRegister');
   }
 }
