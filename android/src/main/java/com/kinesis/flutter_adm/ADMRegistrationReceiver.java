@@ -24,8 +24,8 @@ public class ADMRegistrationReceiver extends BroadcastReceiver {
                 System.out.println("ADM no es compatible con este dispositivo.");
             }
         } else {
-            FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
-            System.out.println("ADM ya está registrado con ID: " + registrationId);
+            // FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
+            // System.out.println("ADM ya está registrado con ID: " + registrationId);
         }
     }
 }
