@@ -30,6 +30,8 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
         }
       }
     });
+
+    _channel.invokeMethod('initialize');
   }
 
   @override
