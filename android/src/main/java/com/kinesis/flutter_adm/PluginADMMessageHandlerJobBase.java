@@ -93,7 +93,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     private void verifyMD5Checksum(final Context context, final Bundle extras)
     {
         /* String to access consolidation key field from data JSON. */
-        final String consolidationKey = ADMConstants.JSON_DATA_CONSOLIDATION_KEY;
+        final String consolidationKey = PluginADMConstants.JSON_DATA_CONSOLIDATION_KEY;
 
         final Set<String> extrasKeySet = extras.keySet();
         final Map<String, String> extrasHashMap = new HashMap<String, String>();
