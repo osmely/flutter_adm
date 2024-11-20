@@ -141,10 +141,7 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
     {
         Log.i(TAG, "PluginADMMessageHandler:onRegistered");
         Log.i(TAG, registrationId);
-
-        /* Register the app instance's registration ID with your server. */
-        // MyServerMsgHandler srv = new MyServerMsgHandler();
-        // srv.registerAppInstance(getApplicationContext(), registrationId);
+        FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
     }
 
     /** {@inheritDoc} */

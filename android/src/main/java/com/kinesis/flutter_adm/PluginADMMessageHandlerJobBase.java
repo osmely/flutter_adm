@@ -132,10 +132,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     {
         Log.i(TAG, "PluginADMMessageHandlerJobBase:onRegistered");
         Log.i(TAG, registrationId);
-
-        /* Register the app instance's registration ID with your server. */
-        // MyServerMsgHandler srv = new MyServerMsgHandler();
-        // srv.registerAppInstance(context.getApplicationContext(), registrationId);
+        FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
     }
 
     /** {@inheritDoc} */
@@ -144,14 +141,12 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     {
         Log.i(TAG, "PluginADMMessageHandlerJobBase:onUnregistered");
 
-        /* Unregister the app instance's registration ID with your server. */
-        // MyServerMsgHandler srv = new MyServerMsgHandler();
-        // srv.unregisterAppInstance(context.getApplicationContext(), registrationId);
     }
 
     @Override
     protected void onSubscribe(final Context context, final String topic) {
         Log.i(TAG, "onSubscribe: " + topic);
+        
     }
 
     @Override
