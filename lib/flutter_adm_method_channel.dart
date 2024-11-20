@@ -44,6 +44,6 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   @override
   void startRegister(){
-    return _channel.invokeMethod('startRegister');
+    _channel.invokeMethod('startRegister');
   }
 }
