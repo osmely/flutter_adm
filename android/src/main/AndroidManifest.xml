@@ -12,20 +12,7 @@
 
 
     <application>
-        <!-- <service
-            android:name=".ADMMessageHandlerService"
-            android:permission="com.amazon.device.messaging.permission.RECEIVE"
-            android:exported="false" />
-
-        <receiver
-            android:name=".ADMRegistrationReceiver"
-            android:permission="com.amazon.device.messaging.permission.SEND"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </receiver> -->
+  
 
 
         <!--  Declare your ADMMessageHandlerBase implementation as a service -->
@@ -35,7 +22,7 @@
         <!--  Declare your ADMMessageHandlerJobBase implementation as a service -->
         <service android:name=".PluginADMMessageHandlerJobBase"
             android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <!-- You must explicitly enable ADM. You must also declare whether your application will run with or without ADM.
         If you specify android:required="false", your app must degrade gracefully when ADM is unavailable. -->
