@@ -57,11 +57,11 @@ public class ADMHelper {
 
         /* Clicking the notification should bring up the MainActivity. */
         /* Intent FLAGS prevent opening multiple instances of MainActivity. */
-        final Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        notificationIntent.putExtra(msgKey, msg);
-        notificationIntent.putExtra(timeKey, time);
+        // final Intent notificationIntent = new Intent(context, MainActivity.class);
+        // notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        // notificationIntent.putExtra(msgKey, msg);
+        // notificationIntent.putExtra(timeKey, time);
 
         /* Android reuses intents that have the same action. Adding a time stamp to the action ensures that */
         /* the notification intent received in onResume() isn't one that was recycled and that may hold old extras. */
