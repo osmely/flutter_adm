@@ -23,7 +23,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
-                <!-- <action android:name="com.amazon.device.messaging.intent.RECEIVE" /> -->
+                <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>
