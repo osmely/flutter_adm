@@ -15,5 +15,5 @@ public class PluginADMConstants {
     // Notification ID
     public static final int SAMPLE_APP_NOTIFICATION_ID = 12345678;
 
-    private ADMConstants() {}
+    private PluginADMConstants() {}
 }
