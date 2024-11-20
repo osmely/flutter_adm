@@ -2,15 +2,15 @@
 import 'flutter_adm_platform_interface.dart';
 
 class FlutterAdm {
-  Future<String?> getRegistrationId() {
-    return FlutterAdmPlatform.instance.getRegistrationId();
+  Future<void> initialize() {
+    return FlutterAdmPlatform.instance.initialize()();
   }
 
-  Future suscribeToTopic(String topic) {
-    return FlutterAdmPlatform.instance.suscribeToTopic(topic);
+  void setOnRegistrationId(Function(String) callback) {
+    return FlutterAdmPlatform.instance.setOnRegistrationId(callback);
   }
 
-  void startRegister(){
-    FlutterAdmPlatform.instance.startRegister();
+  void setOnMessage(Function(String) callback) {
+    FlutterAdmPlatform.instance.setOnMessage(callback);
   }
 }
