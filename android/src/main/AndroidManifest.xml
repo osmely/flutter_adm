@@ -13,6 +13,7 @@
     <application>
         <service
             android:name=".ADMMessageHandlerService"
+            android:permission="com.amazon.device.messaging.permission.RECEIVE"
             android:exported="false" />
 
         <receiver
