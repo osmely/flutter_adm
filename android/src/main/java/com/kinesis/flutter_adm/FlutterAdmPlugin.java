@@ -53,6 +53,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     public static void sendRegistrationIdToDart(String registrationId) {
+        
         Log.d("sendRegistrationIdToDart",":::: -> " + registrationId);
 
         if (FlutterAdmPlugin.channel != null) {

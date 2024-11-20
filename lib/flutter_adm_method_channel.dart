@@ -14,25 +14,34 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   @override
   Future<void> initialize() {
+
+    _channel.setMethodCallHandler((call) async {
+      print('>>> onCall -> ' + call.method);
+
+      if (call.method == 'onRegistrationId') {
+        if(_onRegistrationCallback != null){
+          _onRegistrationCallback(call.arguments as String);
+        }
+      }
+
+      if (call.method == 'onMessage') {
+        if(_onMessageCallback != null){
+          _onMessageCallback(call.arguments as String);
+        }
+      }
+
+    });
+
     return _channel.invokeMethod('initialize');
   }
 
   @override
   void setOnRegistrationId(Function(String) callback) {
-    _channel.setMethodCallHandler((call) async {
-      print('>>> setOnRegistrationId');
-      if (call.method == 'onRegistrationId') {
-        callback(call.arguments as String);
-      }
-    });
+    _onRegistrationCallback = callback;
   }
 
   @override
   void setOnMessage(Function(String) callback) {
-    _channel.setMethodCallHandler((call) async {
-      if (call.method == 'onMessage') {
-        callback(call.arguments as String);
-      }
-    });
+    _onMessageCallback = callback;
   }
 }
