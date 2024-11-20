@@ -7,6 +7,9 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import com.amazon.device.messaging.ADM;
+import android.content.Context;
+
 
 /** FlutterAdmPlugin */
 public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
