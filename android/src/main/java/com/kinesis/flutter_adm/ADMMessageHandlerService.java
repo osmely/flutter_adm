@@ -1,4 +1,6 @@
 package com.kinesis.flutter_adm;
+
+import com.kinesis.flutter_adm.FlutterAdmPlugin;
 import android.content.Intent;
 import com.amazon.device.messaging.ADMMessageHandlerBase;
 
