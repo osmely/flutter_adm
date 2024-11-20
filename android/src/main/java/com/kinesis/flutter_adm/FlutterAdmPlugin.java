@@ -1,5 +1,7 @@
 package com.kinesis.flutter_adm;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -18,6 +20,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     private Context applicationContext;
     private ADM adm;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper()); // Handler para el hilo principal
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
@@ -32,10 +35,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         Log.d("onMethodCall", ":::: -> " + call.method);
 
         if (call.method.equals("startRegister")) {
-            // Ejecuta en un hilo separado
             executorService.execute(() -> handleStartRegister(result));
         } else if (call.method.equals("initialize")) {
-            // Ejecuta en un hilo separado
             executorService.execute(() -> handleInitialize(result));
         } else {
             result.notImplemented();
@@ -51,17 +52,21 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         } else {
             Log.d("FlutterAdmPlugin", ":::: isSupported FALSE ::::");
         }
-        result.success(null);
+
+        // Mover la respuesta al hilo principal
+        mainHandler.post(() -> result.success(null));
     }
 
     private void handleInitialize(Result result) {
         if (this.adm.isSupported()) {
             String registrationId = this.adm.getRegistrationId();
             if (registrationId != null) {
-                sendRegistrationIdToDart(registrationId);
+                sendRegistrationIdToDartOnMainThread(registrationId);
             }
         }
-        result.success(null);
+
+        // Mover la respuesta al hilo principal
+        mainHandler.post(() -> result.success(null));
     }
 
     @Override
@@ -82,5 +87,9 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         if (FlutterAdmPlugin.channel != null) {
             FlutterAdmPlugin.channel.invokeMethod("onMessage", message);
         }
+    }
+
+    private void sendRegistrationIdToDartOnMainThread(String registrationId) {
+        mainHandler.post(() -> sendRegistrationIdToDart(registrationId));
     }
 }
