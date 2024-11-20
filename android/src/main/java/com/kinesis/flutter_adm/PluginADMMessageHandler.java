@@ -143,8 +143,8 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
         Log.i(TAG, registrationId);
 
         /* Register the app instance's registration ID with your server. */
-        MyServerMsgHandler srv = new MyServerMsgHandler();
-        srv.registerAppInstance(getApplicationContext(), registrationId);
+        // MyServerMsgHandler srv = new MyServerMsgHandler();
+        // srv.registerAppInstance(getApplicationContext(), registrationId);
     }
 
     /** {@inheritDoc} */
@@ -154,8 +154,8 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
         Log.i(TAG, "PluginADMMessageHandler:onUnregistered");
 
         /* Unregister the app instance's registration ID with your server. */
-        MyServerMsgHandler srv = new MyServerMsgHandler();
-        srv.unregisterAppInstance(getApplicationContext(), registrationId);
+        // MyServerMsgHandler srv = new MyServerMsgHandler();
+        // srv.unregisterAppInstance(getApplicationContext(), registrationId);
     }
     @Override
     protected void onSubscribe(final String topic) {

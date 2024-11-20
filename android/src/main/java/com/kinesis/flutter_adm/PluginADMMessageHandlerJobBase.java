@@ -134,8 +134,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         Log.i(TAG, registrationId);
 
         /* Register the app instance's registration ID with your server. */
-        MyServerMsgHandler srv = new MyServerMsgHandler();
-        srv.registerAppInstance(context.getApplicationContext(), registrationId);
+        // MyServerMsgHandler srv = new MyServerMsgHandler();
+        // srv.registerAppInstance(context.getApplicationContext(), registrationId);
     }
 
     /** {@inheritDoc} */
@@ -145,8 +145,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         Log.i(TAG, "PluginADMMessageHandlerJobBase:onUnregistered");
 
         /* Unregister the app instance's registration ID with your server. */
-        MyServerMsgHandler srv = new MyServerMsgHandler();
-        srv.unregisterAppInstance(context.getApplicationContext(), registrationId);
+        // MyServerMsgHandler srv = new MyServerMsgHandler();
+        // srv.unregisterAppInstance(context.getApplicationContext(), registrationId);
     }
 
     @Override
