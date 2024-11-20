@@ -90,7 +90,7 @@ public class ADMHelper {
         Notification notification = builder.build();
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        notificationManager.notify(ADMConstants.SAMPLE_APP_NOTIFICATION_ID, notification);
+        notificationManager.notify(PluginADMConstants.SAMPLE_APP_NOTIFICATION_ID, notification);
     }
 
 }

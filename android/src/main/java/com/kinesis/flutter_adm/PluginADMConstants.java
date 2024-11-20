@@ -1,7 +1,7 @@
 
 package com.kinesis.flutter_adm;
 
-public class ADMConstants {
+public class PluginADMConstants {
 
     // JSON keys
     public static final String JSON_DATA_MSG_KEY = "message";
