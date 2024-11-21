@@ -31,6 +31,12 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+        FlutterAdmPlugin.channel.setMethodCallHandler(null);
+        executorService.shutdown();
+    }
+
+    @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         Log.d("onMethodCall", ":::: -> " + call.method);
 
@@ -48,6 +54,38 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
             result.notImplemented();
         }
     }
+
+    //=====================================================================
+    // Send to Dart =======================================================
+    //=====================================================================
+
+    public static void sendRegistrationIdToDart(String registrationId) {
+        if (FlutterAdmPlugin.channel != null) {
+            FlutterAdmPlugin.channel.invokeMethod("onRegistrationId", registrationId);
+        }
+    }
+
+    public static void sendMessageToDart(String message) {
+        if (FlutterAdmPlugin.channel != null) {
+            FlutterAdmPlugin.channel.invokeMethod("onMessage", message);
+        }
+    }
+
+    public static void sendOnSuscribeToDart(String message) {
+        if (FlutterAdmPlugin.channel != null) {
+            FlutterAdmPlugin.channel.invokeMethod("onSuscribe", message);
+        }
+    }
+
+    public static void sendOnUnsubscribeToDart(String message) {
+        if (FlutterAdmPlugin.channel != null) {
+            FlutterAdmPlugin.channel.invokeMethod("onUnsubscribe", message);
+        }
+    }
+
+    //=====================================================================
+    // Private ============================================================
+    //=====================================================================
 
     private void handleStartRegister(Result result) {
         if (this.adm.isSupported()) {
@@ -72,24 +110,6 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
         // Mover la respuesta al hilo principal
         mainHandler.post(() -> result.success(null));
-    }
-
-    @Override
-    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        FlutterAdmPlugin.channel.setMethodCallHandler(null);
-        executorService.shutdown();
-    }
-
-    public static void sendRegistrationIdToDart(String registrationId) {
-        if (FlutterAdmPlugin.channel != null) {
-            FlutterAdmPlugin.channel.invokeMethod("onRegistrationId", registrationId);
-        }
-    }
-
-    public static void sendMessageToDart(String message) {
-        if (FlutterAdmPlugin.channel != null) {
-            FlutterAdmPlugin.channel.invokeMethod("onMessage", message);
-        }
     }
 
     private void sendRegistrationIdToDartOnMainThread(String registrationId) {

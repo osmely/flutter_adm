@@ -14,6 +14,10 @@ class FlutterAdm {
     FlutterAdmPlatform.instance.setOnRegistrationId(callback);
   }
 
+  void setOnSuscription(Function(String, bool) callback) {
+    FlutterAdmPlatform.instance.setOnSuscription(callback);
+  }
+
   void setOnMessage(Function(String) callback) {
     FlutterAdmPlatform.instance.setOnMessage(callback);
   }
