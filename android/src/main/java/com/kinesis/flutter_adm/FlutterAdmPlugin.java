@@ -53,9 +53,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         } else if (call.method.equals("setTopicSuscription")) {
             String topic = call.argument("topic");
             Boolean suscribe = call.argument("suscribe");
-
             executorService.execute(() -> handleSuscription(result, topic, suscribe));
-
 
         } else {
             result.notImplemented();
@@ -78,15 +76,15 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         }
     }
 
-    public static void sendOnSuscribeToDart(String message) {
+    public static void sendOnSuscribeToDart(String topic) {
         if (FlutterAdmPlugin.channel != null) {
-            FlutterAdmPlugin.channel.invokeMethod("onSuscribe", message);
+            FlutterAdmPlugin.channel.invokeMethod("onSuscribe", topic);
         }
     }
 
-    public static void sendOnUnsubscribeToDart(String message) {
+    public static void sendOnUnsubscribeToDart(String topic) {
         if (FlutterAdmPlugin.channel != null) {
-            FlutterAdmPlugin.channel.invokeMethod("onUnsubscribe", message);
+            FlutterAdmPlugin.channel.invokeMethod("onUnsubscribe", topic);
         }
     }
 
