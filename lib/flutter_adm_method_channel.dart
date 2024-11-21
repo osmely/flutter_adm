@@ -11,7 +11,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   Function(String)? _onRegistrationCallback;
   Function(String)? _onMessageCallback;
-  Function(String, bool)? _onSuscriptionCallback;
+  Function(String, bool)? _onSubscriptionCallback;
 
   @override
   void initialize() {
@@ -30,14 +30,14 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
       }
 
       if (call.method == 'onSubscribe') {
-        if(_onSuscriptionCallback != null){
-          _onSuscriptionCallback!(call.arguments as String, true);
+        if(_onSubscriptionCallback != null){
+          _onSubscriptionCallback!(call.arguments as String, true);
         }
       }
 
       if (call.method == 'onUnsubscribe') {
-        if(_onSuscriptionCallback != null){
-          _onSuscriptionCallback!(call.arguments as String, false);
+        if(_onSubscriptionCallback != null){
+          _onSubscriptionCallback!(call.arguments as String, false);
         }
       }
 
@@ -47,8 +47,8 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   }
 
   @override
-  void setOnSuscription(Function(String, bool) callback) {
-    _onSuscriptionCallback = callback;
+  void setOnSubscription(Function(String, bool) callback) {
+    _onSubscriptionCallback = callback;
   }
 
   @override
@@ -73,7 +73,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   }
 
   @override
-  Future<void> setTopicSuscription(String topic, bool suscribe) async {
-    await _channel.invokeMethod('setTopicSuscription', {'topic': topic, 'suscribe': suscribe});
+  Future<void> setTopicSubscription(String topic, bool suscribe) async {
+    await _channel.invokeMethod('setTopicSubscription', {'topic': topic, 'suscribe': suscribe});
   }
 }

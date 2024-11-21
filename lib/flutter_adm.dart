@@ -14,12 +14,12 @@ class FlutterAdm {
     FlutterAdmPlatform.instance.setOnRegistrationId(callback);
   }
 
-  void setOnSuscription(Function(String, bool) callback) {
-    FlutterAdmPlatform.instance.setOnSuscription(callback);
+  void setOnSubscription(Function(String, bool) callback) {
+    FlutterAdmPlatform.instance.setOnSubscription(callback);
   }
 
-  Future<void> setTopicSuscription(String topic, bool suscribe) async {
-    return FlutterAdmPlatform.instance.setTopicSuscription(topic, suscribe);
+  Future<void> setTopicSubscription(String topic, bool suscribe) async {
+    return FlutterAdmPlatform.instance.setTopicSubscription(topic, suscribe);
   }
 
   void setOnMessage(Function(String) callback) {

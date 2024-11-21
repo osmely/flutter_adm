@@ -50,10 +50,10 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
             boolean isSupported = adm != null && adm.isSupported();
             result.success(isSupported); 
         
-        } else if (call.method.equals("setTopicSuscription")) {
+        } else if (call.method.equals("setTopicSubscription")) {
             String topic = call.argument("topic");
             Boolean suscribe = call.argument("suscribe");
-            executorService.execute(() -> handleSuscription(result, topic, suscribe));
+            executorService.execute(() -> handleSubscription(result, topic, suscribe));
 
         } else {
             result.notImplemented();
@@ -118,7 +118,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
 
-    private void handleSuscription(Result result, String topic, Boolean suscribe) {
+    private void handleSubscription(Result result, String topic, Boolean suscribe) {
        
        if (suscribe) {
             this.adm.subscribeToTopic(topic);
