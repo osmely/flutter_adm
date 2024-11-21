@@ -18,8 +18,8 @@ class FlutterAdm {
     FlutterAdmPlatform.instance.setOnSuscription(callback);
   }
 
-  void setTopicSuscription(String topic, bool suscribe) async {
-    await FlutterAdmPlatform.instance.setTopicSuscription(topic, suscribe);
+  Future<void> setTopicSuscription(String topic, bool suscribe) async {
+    return FlutterAdmPlatform.instance.setTopicSuscription(topic, suscribe);
   }
 
   void setOnMessage(Function(String) callback) {
