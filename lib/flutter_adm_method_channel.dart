@@ -29,13 +29,13 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
         }
       }
 
-      if (call.method == 'onSuscribe') {
+      if (call.method == 'onSubscribe') {
         if(_onSuscriptionCallback != null){
           _onSuscriptionCallback!(call.arguments as String, true);
         }
       }
 
-      if (call.method == 'onUnsuscribe') {
+      if (call.method == 'onUnsubscribe') {
         if(_onSuscriptionCallback != null){
           _onSuscriptionCallback!(call.arguments as String, false);
         }

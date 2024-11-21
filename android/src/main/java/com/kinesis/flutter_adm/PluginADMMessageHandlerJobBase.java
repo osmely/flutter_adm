@@ -142,7 +142,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
     @Override
     protected void onSubscribe(final Context context, final String topic) {
-        FlutterAdmPlugin.sendOnSuscribeToDart(topic);
+        FlutterAdmPlugin.sendOnSubscribeToDart(topic);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
     @Override
     protected void onUnsubscribe(final Context context, final String topic) {
-        FlutterAdmPlugin.sendOnUnsuscribeToDart(topic);
+        FlutterAdmPlugin.sendOnUnsubscribeToDart(topic);
     }
 
     @Override

@@ -76,9 +76,9 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         }
     }
 
-    public static void sendOnSuscribeToDart(String topic) {
+    public static void sendOnSubscribeToDart(String topic) {
         if (FlutterAdmPlugin.channel != null) {
-            FlutterAdmPlugin.channel.invokeMethod("onSuscribe", topic);
+            FlutterAdmPlugin.channel.invokeMethod("onSubscribe", topic);
         }
     }
 
