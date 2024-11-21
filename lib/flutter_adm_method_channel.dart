@@ -11,7 +11,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   Function(String)? _onRegistrationCallback;
   Function(String)? _onMessageCallback;
-  Function(String, Boolean)? _onSuscriptionCallback;
+  Function(String, bool)? _onSuscriptionCallback;
 
   @override
   void initialize() {
