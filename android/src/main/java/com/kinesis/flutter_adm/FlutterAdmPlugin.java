@@ -50,6 +50,13 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
             boolean isSupported = adm != null && adm.isSupported();
             result.success(isSupported); 
         
+        } else if (call.method.equals("setTopicSuscription")) {
+            String topic = call.argument("topic");
+            Boolean suscribe = call.argument("suscribe");
+
+            executorService.execute(() -> handleSuscription(result, topic, suscribe));
+
+
         } else {
             result.notImplemented();
         }
@@ -107,6 +114,19 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
                 sendRegistrationIdToDartOnMainThread(registrationId);
             }
         }
+
+        // Mover la respuesta al hilo principal
+        mainHandler.post(() -> result.success(null));
+    }
+
+
+    private void handleSuscription(Result result, String topic, Boolean suscribe) {
+       
+       if (suscribe) {
+            this.adm.subscribeToTopic(topic);
+       } else {
+            this.adm.unsubscribeFromTopic(topic);
+       }
 
         // Mover la respuesta al hilo principal
         mainHandler.post(() -> result.success(null));

@@ -71,4 +71,9 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
     final bool isSupported = await _channel.invokeMethod('isSupported');
     return isSupported;
   }
+
+  @override
+  void setTopicSuscription(String topic, bool suscribe) async {
+    await _channel.invokeMethod('setTopicSuscription', {'topic': topic, 'suscribe': suscribe});
+  }
 }
