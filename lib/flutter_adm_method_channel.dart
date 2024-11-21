@@ -73,7 +73,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   }
 
   @override
-  void setTopicSuscription(String topic, bool suscribe) async {
+  Future<void> setTopicSuscription(String topic, bool suscribe) async {
     await _channel.invokeMethod('setTopicSuscription', {'topic': topic, 'suscribe': suscribe});
   }
 }
