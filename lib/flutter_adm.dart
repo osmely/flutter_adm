@@ -6,6 +6,10 @@ class FlutterAdm {
     FlutterAdmPlatform.instance.initialize();
   }
 
+  void startUnregister() {
+    FlutterAdmPlatform.instance.startUnregister();
+  }
+
   void startRegister() {
     FlutterAdmPlatform.instance.startRegister();
   }

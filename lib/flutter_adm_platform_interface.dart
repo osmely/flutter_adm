@@ -18,6 +18,10 @@ abstract class FlutterAdmPlatform extends PlatformInterface {
     throw UnimplementedError('startRegister() has not been implemented.');
   }
 
+  void startUnregister(){
+    throw UnimplementedError('startUnregister() has not been implemented.');
+  }  
+
   void initialize() {
     throw UnimplementedError('getRegistrationId() has not been implemented.');
   }

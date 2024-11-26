@@ -67,6 +67,11 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   }
 
   @override
+  void startUnregister(){
+    _channel.invokeMethod('startUnregister');
+  }
+
+  @override
   Future<bool> isSupported() async {
     final bool isSupported = await _channel.invokeMethod('isSupported');
     return isSupported;

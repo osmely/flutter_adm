@@ -42,6 +42,9 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
         if (call.method.equals("startRegister")) {
             executorService.execute(() -> handleStartRegister(result));
+
+        if (call.method.equals("startUnregister")) {
+            executorService.execute(() -> handleStartUnregister(result));
         
         } else if (call.method.equals("initialize")) {
             executorService.execute(() -> handleInitialize(result));
@@ -105,6 +108,17 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         mainHandler.post(() -> result.success(null));
     }
 
+    private void handleStartUnregister(Result result) {
+        if (this.adm.isSupported()) {
+            this.adm.startUnregister();
+        } else {
+            
+        }
+
+        // Mover la respuesta al hilo principal
+        mainHandler.post(() -> result.success(null));
+    }
+
     private void handleInitialize(Result result) {
         if (this.adm.isSupported()) {
             String registrationId = this.adm.getRegistrationId();
@@ -116,7 +130,6 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         // Mover la respuesta al hilo principal
         mainHandler.post(() -> result.success(null));
     }
-
 
     private void handleSubscription(Result result, String topic, Boolean suscribe) {
        
