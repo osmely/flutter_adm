@@ -11,7 +11,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   Function(String)? _onRegistrationCallback;
   Function(String)? _onMessageCallback;
-  Function(String, bool)? _onSubscriptionCallback;
+
 
   @override
   void initialize() {
@@ -44,11 +44,6 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
     });
 
     _channel.invokeMethod('initialize');
-  }
-
-  @override
-  void setOnSubscription(Function(String, bool) callback) {
-    _onSubscriptionCallback = callback;
   }
 
   @override

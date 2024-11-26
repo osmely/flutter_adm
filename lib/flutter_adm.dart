@@ -18,10 +18,6 @@ class FlutterAdm {
     FlutterAdmPlatform.instance.setOnRegistrationId(callback);
   }
 
-  void setOnSubscription(Function(String, bool) callback) {
-    FlutterAdmPlatform.instance.setOnSubscription(callback);
-  }
-
   Future<void> setTopicSubscription(String topic, bool suscribe) async {
     return FlutterAdmPlatform.instance.setTopicSubscription(topic, suscribe);
   }

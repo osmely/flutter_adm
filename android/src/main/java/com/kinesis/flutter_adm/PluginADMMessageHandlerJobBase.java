@@ -142,7 +142,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
     @Override
     protected void onSubscribe(final Context context, final String topic) {
-        FlutterAdmPlugin.sendOnSubscribeToDart(topic);
+        
     }
 
     @Override
