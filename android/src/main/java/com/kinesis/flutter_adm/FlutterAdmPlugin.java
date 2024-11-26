@@ -75,22 +75,14 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         }
     }
 
-    public static void sendOnUnsubscribeToDart(String topic) {
-        if (FlutterAdmPlugin.channel != null) {
-            FlutterAdmPlugin.channel.invokeMethod("onUnsubscribe", topic);
-        }
-    }
 
     //=====================================================================
     // Private ============================================================
     //=====================================================================
 
     private void handleStartRegister(Result result) {
-        if (this.adm.isSupported()) {
-            if (this.adm.getRegistrationId() == null) {
-                Log.d("handleStartRegister", "::::");
-                this.adm.startRegister();
-            }
+        if (this.adm.isSupported()) {    
+            this.adm.startRegister();
         } else {
             
         }
@@ -115,6 +107,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
             String registrationId = this.adm.getRegistrationId();
             if (registrationId != null) {
                 sendRegistrationIdToDartOnMainThread(registrationId);
+            } else {
+                this.adm.startRegister();
             }
         }
 

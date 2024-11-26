@@ -152,7 +152,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
     @Override
     protected void onUnsubscribe(final Context context, final String topic) {
-        FlutterAdmPlugin.sendOnUnsubscribeToDart(topic);
+        
     }
 
     @Override
