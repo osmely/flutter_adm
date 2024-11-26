@@ -139,7 +139,7 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
     @Override
     protected void onRegistered(final String registrationId) 
     {
-        FlutterAdmPlugin.sendRegistrationIdToDartOnMainThreat(registrationId);
+        FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
     }
 
     /** {@inheritDoc} */

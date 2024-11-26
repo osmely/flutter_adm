@@ -28,6 +28,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     /** Tag for logs. */
     private final static String TAG = "ADMSampleJobBase";
 
+    private final Handler mainHandler = new Handler(Looper.getMainLooper()); // Handler para el hilo principal
+
     /**
      * Class constructor.
      */
@@ -126,11 +128,16 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         
     }
 
+    public static void sendRegistrationIdToDart(String registrationId) {
+        FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
+    }
+
     /** {@inheritDoc} */
     @Override
     protected void onRegistered(final Context context, final String registrationId)
     {
-        FlutterAdmPlugin.sendRegistrationIdToDartOnMainThreat(registrationId);
+        mainHandler.post(() -> sendRegistrationIdToDart(registrationId));
+        // FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
     }
 
     /** {@inheritDoc} */
