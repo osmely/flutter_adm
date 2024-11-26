@@ -57,7 +57,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
             result.notImplemented();
         }
     }
-    }
+    
 
     //=====================================================================
     // Send to Dart =======================================================
