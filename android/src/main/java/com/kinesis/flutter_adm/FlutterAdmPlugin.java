@@ -43,7 +43,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         if (call.method.equals("startRegister")) {
             executorService.execute(() -> handleStartRegister(result));
 
-        if (call.method.equals("startUnregister")) {
+        } else if (call.method.equals("startUnregister")) {
             executorService.execute(() -> handleStartUnregister(result));
         
         } else if (call.method.equals("initialize")) {
@@ -56,6 +56,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         } else {
             result.notImplemented();
         }
+    }
     }
 
     //=====================================================================
