@@ -116,7 +116,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         mainHandler.post(() -> result.success(null));
     }
 
-    private void sendRegistrationIdToDartOnMainThread(String registrationId) {
+    public void sendRegistrationIdToDartOnMainThread(String registrationId) {
         Log.d("sendRegistrationIdToDartOnMainThread", "::::");
         mainHandler.post(() -> sendRegistrationIdToDart(registrationId));
     }
