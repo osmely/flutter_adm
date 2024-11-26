@@ -88,6 +88,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     private void handleStartRegister(Result result) {
         if (this.adm.isSupported()) {
             if (this.adm.getRegistrationId() == null) {
+                Log.d("handleStartRegister", "::::");
                 this.adm.startRegister();
             }
         } else {
@@ -122,6 +123,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     private void sendRegistrationIdToDartOnMainThread(String registrationId) {
+        Log.d("sendRegistrationIdToDartOnMainThread", "::::");
         mainHandler.post(() -> sendRegistrationIdToDart(registrationId));
     }
 }
