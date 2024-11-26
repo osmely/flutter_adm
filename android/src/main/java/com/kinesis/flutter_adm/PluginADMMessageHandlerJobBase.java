@@ -130,7 +130,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     @Override
     protected void onRegistered(final Context context, final String registrationId)
     {
-        FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
+        FlutterAdmPlugin.sendRegistrationIdToDartOnMainThreat(registrationId);
     }
 
     /** {@inheritDoc} */
