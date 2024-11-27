@@ -5,7 +5,8 @@
  */
 
 package com.kinesis.flutter_adm;
-
+import android.os.Handler;
+import android.os.Looper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,8 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
 {
     /** Tag for logs. */
     private final static String TAG = "ADMSampleIntentBase";
+
+    private final Handler mainHandler = new Handler(Looper.getMainLooper()); // Handler para el hilo principal
 
     /**
      * Class constructor.
@@ -63,8 +66,6 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
         /* Extras that were included in the intent. */
         final Bundle extras = intent.getExtras();
 
-        verifyMD5Checksum(extras);
-        
         /* Extract message from the extras in the intent. */
         final String msg = extras.getString(msgKey);
         final String time = extras.getString(timeKey);
@@ -75,9 +76,6 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
                     "Make sure that msgKey and timeKey values match data elements of your JSON message");
         }
 
-        /* Create a notification with message data. */
-        /* This is required to test cases where the app or device may be off. */
-        ADMHelper.createADMNotification(this, msgKey, timeKey, intentAction, msg, time);
 
         /* Intent category that will be triggered in onMessage() callback. */
         final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
@@ -135,11 +133,15 @@ public class PluginADMMessageHandler extends ADMMessageHandlerBase
         Log.e(TAG, "PluginADMMessageHandler:onRegistrationError " + string);
     }
 
+    public static void sendRegistrationIdToDart(String registrationId) {
+        FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
+    }
+
     /** {@inheritDoc} */
     @Override
     protected void onRegistered(final String registrationId) 
     {
-        FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
+        mainHandler.post(() -> sendRegistrationIdToDart(registrationId));
     }
 
     /** {@inheritDoc} */

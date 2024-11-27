@@ -12,8 +12,5 @@ public class PluginADMConstants {
     public static final String INTENT_MSG_ACTION = "com.amazon.sample.admmessenger.ON_MESSAGE";
     public static final String INTENT_MSG_CATEGORY = "com.amazon.sample.admmessenger.MSG_CATEGORY";
 
-    // Notification ID
-    public static final int SAMPLE_APP_NOTIFICATION_ID = 12345678;
-
     private PluginADMConstants() {}
 }

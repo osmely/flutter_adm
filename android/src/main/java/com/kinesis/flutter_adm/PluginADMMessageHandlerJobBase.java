@@ -23,6 +23,10 @@ import org.json.JSONObject;
 import org.json.JSONException;
 import android.util.Log;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 /**
  * The PluginADMMessageHandlerJobBase class receives messages sent by ADM via the SampleADMMessageReceiver receiver.
@@ -92,15 +96,35 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         /* Intent category that will be triggered in onMessage() callback. */
         final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
 
-        /* Broadcast an intent to update the app UI with the message. */
-        /* The broadcast receiver will only catch this intent if the app is within the onResume state of its lifecycle. */
-        /* User will see a notification otherwise. */
+        // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
         final Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(intentAction);
         broadcastIntent.addCategory(msgCategory);
         broadcastIntent.putExtra(msgKey, msg);
         broadcastIntent.putExtra(timeKey, time);
         context.sendBroadcast(broadcastIntent);
+
+        // Crear y mostrar la notificación
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, ADMHelper.CHANNEL_ID)
+            .setSmallIcon(context.getApplicationInfo().icon)
+            .setContentTitle("Título de la notificación")  // Ajusta según tus necesidades
+            .setContentText(msg)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Crear el canal de notificación (para Android 8.0 y superior)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                ADMHelper.CHANNEL_ID,
+                ADMHelper.CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // Mostrar la notificación
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(1, builder.build());
+        
 
     }
 
