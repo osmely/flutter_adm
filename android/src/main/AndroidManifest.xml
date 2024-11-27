@@ -26,7 +26,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE">
             <meta-data
                 android:name="com.amazon.device.messaging.notification_icon"
-                android:resource="${applicationId}:mipmap/ic_launcher_round" />
+                android:resource="@*${applicationId}:mipmap/ic_launcher_round" />
         </service>
 
         <!-- You must explicitly enable ADM. You must also declare whether your application will run with or without ADM.
