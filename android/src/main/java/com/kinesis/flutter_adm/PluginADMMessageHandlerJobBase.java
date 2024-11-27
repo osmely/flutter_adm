@@ -105,27 +105,6 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         broadcastIntent.putExtra(timeKey, time);
         context.sendBroadcast(broadcastIntent);
 
-        // Crear y mostrar la notificación
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, ADMHelper.CHANNEL_ID)
-            .setSmallIcon(context.getApplicationInfo().icon)
-            .setContentTitle("Título de la notificación")  // Ajusta según tus necesidades
-            .setContentText(msg)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        // Crear el canal de notificación (para Android 8.0 y superior)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                ADMHelper.CHANNEL_ID,
-                ADMHelper.CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        // Mostrar la notificación
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(1, builder.build());
-        
 
     }
 
