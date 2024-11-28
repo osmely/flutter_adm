@@ -49,6 +49,22 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         super();
     }
 
+    private boolean isAppInForeground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        if (appProcesses == null) return false;
+
+        String packageName = context.getPackageName();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND 
+                && appProcess.processName.equals(packageName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     /** {@inheritDoc} */
     @Override
     protected void onMessage(final Context context, final Intent intent)
@@ -78,8 +94,25 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             iconResourceId = context.getResources().getIdentifier("ic_launcher_round", "mipmap", context.getPackageName());
         }
 
-        
-        // .setSmallIcon(iconResourceId)
+        // Solo mostrar notificación si la app está en segundo plano o cerrada
+        if (!isAppInForeground(context)) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
+                notificationManager.createNotificationChannel(channel);
+            }
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
+                .setSmallIcon(iconResourceId)
+                .setContentTitle("Nuevo mensaje")
+                .setContentText(extras.getString(PluginADMConstants.JSON_DATA_MSG_KEY, "Tienes un nuevo mensaje"))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+            notificationManager.notify(1, builder.build());
+        }
+
+
 
 
 
