@@ -59,10 +59,10 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         }
 
         // Obtener el ID del icono de la aplicación principal
-        int iconResourceId = context.getResources().getIdentifier("ic_notification", "drawable", context.getPackageName());
+        int iconResourceId = context.getResources().getIdentifier("notification_image", "drawable", context.getPackageName());
         if (iconResourceId == 0) {
             // Si no encuentra ic_notification, intenta con el icono launcher
-            iconResourceId = context.getResources().getIdentifier("ic_launcher", "mipmap", context.getPackageName());
+            iconResourceId = context.getResources().getIdentifier("ic_launcher_round", "mipmap", context.getPackageName());
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
