@@ -67,8 +67,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             }
         }
         
-        String messageData = jsonExtras.toString();
-        mainHandler.post(() -> sendMessageToDart(messageData));
+        // String messageData = jsonExtras.toString();
+        // mainHandler.post(() -> sendMessageToDart(messageData));
 
 
 
