@@ -49,32 +49,6 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         super();
     }
 
-    private void showNotification(Context context, String title, String message) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        
-        // Crear canal de notificación para Android O y superiores
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        // Obtener el ID del icono de la aplicación principal
-        int iconResourceId = context.getResources().getIdentifier("notification_image", "drawable", context.getPackageName());
-        if (iconResourceId == 0) {
-            // Si no encuentra ic_notification, intenta con el icono launcher
-            iconResourceId = context.getResources().getIdentifier("ic_launcher_round", "mipmap", context.getPackageName());
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
-                .setSmallIcon(iconResourceId)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
-        notificationManager.notify(1, builder.build());
-    }
-
     /** {@inheritDoc} */
     @Override
     protected void onMessage(final Context context, final Intent intent)
@@ -99,46 +73,48 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
 
 
-        // /* String to access message field from data JSON. */
+        int iconResourceId = context.getResources().getIdentifier("notification_image", "drawable", context.getPackageName());
+        if (iconResourceId == 0) {
+            iconResourceId = context.getResources().getIdentifier("ic_launcher_round", "mipmap", context.getPackageName());
+        }
+
+        
+        // .setSmallIcon(iconResourceId)
+
+
+
+        /* String to access message field from data JSON. */
         final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
 
-        // /* String to access timeStamp field from data JSON. */
-        // final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
+        /* String to access timeStamp field from data JSON. */
+        final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
 
-        // /* Intent action that will be triggered in onMessage() callback. */
-        // final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
-
-
-        // /* Extract message from the extras in the intent. */
-        // final String msg = extras.getString(msgKey);
-        // final String time = extras.getString(timeKey);
-
-        // if (msg == null || time == null)
-        // {
-        //     Log.w(TAG, "PluginADMMessageHandlerJobBase:onMessage Unable to extract message data." +
-        //             "Make sure that msgKey and timeKey values match data elements of your JSON message");
-        // }
+        /* Intent action that will be triggered in onMessage() callback. */
+        final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
 
 
-        // /* Intent category that will be triggered in onMessage() callback. */
-        // final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
+        /* Extract message from the extras in the intent. */
+        final String msg = extras.getString(msgKey);
+        final String time = extras.getString(timeKey);
 
-        // // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
-        // final Intent broadcastIntent = new Intent();
-        // broadcastIntent.setAction(intentAction);
-        // broadcastIntent.addCategory(msgCategory);
-        // broadcastIntent.putExtra(msgKey, msg);
-        // broadcastIntent.putExtra(timeKey, time);
-        // context.sendBroadcast(broadcastIntent);
-
-
- // Mostrar notificación
-        String title = extras.getString("title", "Nuevo mensaje");
-        String message = extras.getString("message", "");
-        if (message.isEmpty()) {
-            message = extras.getString(msgKey, "Tienes un nuevo mensaje");
+        if (msg == null || time == null)
+        {
+            Log.w(TAG, "PluginADMMessageHandlerJobBase:onMessage Unable to extract message data." +
+                    "Make sure that msgKey and timeKey values match data elements of your JSON message");
         }
-        showNotification(context, title, message);
+
+
+        /* Intent category that will be triggered in onMessage() callback. */
+        final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
+
+        // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
+        final Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(intentAction);
+        broadcastIntent.addCategory(msgCategory);
+        broadcastIntent.putExtra(msgKey, msg);
+        broadcastIntent.putExtra(timeKey, time);
+        context.sendBroadcast(broadcastIntent);
+ 
     }
 
     /** {@inheritDoc} */
