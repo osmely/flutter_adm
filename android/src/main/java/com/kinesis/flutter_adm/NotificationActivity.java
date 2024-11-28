@@ -25,7 +25,7 @@ public class NotificationActivity extends FlutterActivity {
         
         // Pass message to plugin
         if (message != null) {
-            FlutterAmazonAdmPlugin.handleNotificationOpen(message);
+            FlutterAdmPlugin.sendMessageToDart(message);
         }
         
         // Finish this activity and return to main activity
