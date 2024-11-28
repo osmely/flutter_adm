@@ -100,7 +100,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
 
         // /* String to access message field from data JSON. */
-        // final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
+        final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
 
         // /* String to access timeStamp field from data JSON. */
         // final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
