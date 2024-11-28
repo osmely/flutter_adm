@@ -1,4 +1,4 @@
-package com.example.flutter_amazon_adm;
+package com.kinesis.flutter_adm;
 
 import android.content.Context;
 import android.content.Intent;
