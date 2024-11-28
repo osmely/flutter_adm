@@ -76,7 +76,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 jsonExtras.put(key, extras.get(key));
             }
 
-            showNotification(context, jsonExtras);
+            mainHandler.post(() -> showNotification(context, jsonExtras));
+            
 
             // If app is in foreground, send message directly
             // if (isAppInForeground(context)) {
