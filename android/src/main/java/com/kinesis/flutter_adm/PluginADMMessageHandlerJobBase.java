@@ -237,46 +237,46 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     }
 
 
-    public static void createADMNotification(final Context context, final String msgKey, final String timeKey,
-                                             final String intentAction, final String msg, final String time)
-    {
+    // public static void createADMNotification(final Context context, final String msgKey, final String timeKey,
+    //                                          final String intentAction, final String msg, final String time)
+    // {
 
-        /* Clicking the notification should bring up the MainActivity. */
-        /* Intent FLAGS prevent opening multiple instances of MainActivity. */
-        final Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        notificationIntent.putExtra(msgKey, msg);
-        notificationIntent.putExtra(timeKey, time);
+    //     /* Clicking the notification should bring up the MainActivity. */
+    //     /* Intent FLAGS prevent opening multiple instances of MainActivity. */
+    //     final Intent notificationIntent = new Intent(context, MainActivity.class);
+    //     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    //     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    //     notificationIntent.putExtra(msgKey, msg);
+    //     notificationIntent.putExtra(timeKey, time);
 
-        /* Android reuses intents that have the same action. Adding a time stamp to the action ensures that */
-        /* the notification intent received in onResume() isn't one that was recycled and that may hold old extras. */
-        notificationIntent.setAction(intentAction + time);
+    //     /* Android reuses intents that have the same action. Adding a time stamp to the action ensures that */
+    //     /* the notification intent received in onResume() isn't one that was recycled and that may hold old extras. */
+    //     notificationIntent.setAction(intentAction + time);
 
-        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL);
+    //     final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL);
 
-        Notification.Builder builder;
+    //     Notification.Builder builder;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder = new Notification.Builder(context, CHANNEL_ID)
-                    .setContentTitle("ADM Message Received!")
-                    .setContentText(msg)
-                    .setSmallIcon(R.drawable.iv_notification_image)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true);
-        } else {
-            builder = new Notification.Builder(context)
-                    .setContentTitle("ADM Message Received!")
-                    .setContentText(msg)
-                    .setSmallIcon(R.drawable.iv_notification_image)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true);
-        }
+    //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    //         builder = new Notification.Builder(context, CHANNEL_ID)
+    //                 .setContentTitle("ADM Message Received!")
+    //                 .setContentText(msg)
+    //                 .setSmallIcon(R.drawable.iv_notification_image)
+    //                 .setContentIntent(pendingIntent)
+    //                 .setAutoCancel(true);
+    //     } else {
+    //         builder = new Notification.Builder(context)
+    //                 .setContentTitle("ADM Message Received!")
+    //                 .setContentText(msg)
+    //                 .setSmallIcon(R.drawable.iv_notification_image)
+    //                 .setContentIntent(pendingIntent)
+    //                 .setAutoCancel(true);
+    //     }
 
-        Notification notification = builder.build();
+    //     Notification notification = builder.build();
 
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        notificationManager.notify(context.getResources().getInteger(R.integer.sample_app_notification_id), notification);
-    }
+    //     NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+    //     notificationManager.notify(context.getResources().getInteger(R.integer.sample_app_notification_id), notification);
+    // }
 
 }
