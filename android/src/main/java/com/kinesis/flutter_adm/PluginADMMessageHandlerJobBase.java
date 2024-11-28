@@ -55,9 +55,11 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     {
         
         Bundle extras = intent.getExtras();
-        JSONObject jsonExtras = new JSONObject();
+        
         
         if (extras != null) {
+            Map<String, Object> jsonExtras = new HashMap<>();
+
             for (String key : extras.keySet()) {
                 try {
                     jsonExtras.put(key, extras.get(key));
@@ -65,18 +67,21 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                     Log.e(TAG, "Error converting extras to JSON", e);
                 }
             }
+
+
+            // If app is in foreground, send message directly
+            if (isAppInForeground(context)) {
+                if (channel != null) {
+                    String messageData = (new JSONObject(jsonExtras)).toString();
+                    mainHandler.post(() -> sendMessageToDart(messageData));
+                }
+            } else {
+                    // If app is in background, show notification
+                    showNotification(context, jsonExtras);
+            }
         }
 
-        // If app is in foreground, send message directly
-        if (isAppInForeground(context)) {
-            if (channel != null) {
-                String messageData = jsonExtras.toString();
-                mainHandler.post(() -> sendMessageToDart(messageData));
-            }
-        } else {
-                // If app is in background, show notification
-                showNotification(context, message);
-        }
+        
         
         // String messageData = jsonExtras.toString();
         // mainHandler.post(() -> sendMessageToDart(messageData));
@@ -178,7 +183,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         return false;
     }
 
-    private void showNotification(Context context, JSONObject message) {
+    private void showNotification(Context context, Map<String, Object> message) {
         NotificationManager notificationManager = 
             (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         
@@ -195,7 +200,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         // Create intent for NotificationActivity
         Intent intent = NotificationActivity.createIntent(
             context,
-            message.toString()
+            new JSONObject(message).toString()
         );
 
         PendingIntent pendingIntent = PendingIntent.getActivity(
