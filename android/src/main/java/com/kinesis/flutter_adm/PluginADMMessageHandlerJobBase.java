@@ -195,7 +195,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         // Create notification channel for Android O and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
-                "adm_notifications",
+                PluginADMConstants.NOTIFICATION_CHANNEL_ID,
                 "ADM Notifications",
                 NotificationManager.IMPORTANCE_HIGH
             );
@@ -216,7 +216,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         );
 
         // Build notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, PluginADMConstants.NOTIFICATION_CHANNEL_ID)
             .setContentTitle(message.containsKey("title") ? message.get("title").toString() : "New Message")
             .setContentText(message.containsKey("message") ? message.get("message").toString() : "You have a new message")
             // .setSmallIcon(android.R.drawable.ic_dialog_info)
