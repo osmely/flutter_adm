@@ -67,11 +67,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             Map<String, Object> jsonExtras = new HashMap<>();
 
             for (String key : extras.keySet()) {
-                try {
-                    jsonExtras.put(key, extras.get(key));
-                } catch (e) {
-                    
-                }
+                jsonExtras.put(key, extras.get(key));
             }
 
 
