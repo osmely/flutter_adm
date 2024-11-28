@@ -19,6 +19,6 @@ public class PluginADMMessageReceiver extends ADMMessageReceiver {
             registerJobServiceClass(PluginADMMessageHandlerJobBase.class, ADMHelper.JOB_ID);
         }
 
-        setResultCode(Activity.RESULT_OK)
+        setResultCode(Activity.RESULT_OK);
     }
 }
