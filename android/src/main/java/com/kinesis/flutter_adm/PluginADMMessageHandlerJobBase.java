@@ -185,6 +185,9 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     }
 
     private void showNotification(Context context, Map<String, Object> message) {
+
+        Log.d("showNotification", ":::: ***** ");
+
         NotificationManager notificationManager = 
             (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         
