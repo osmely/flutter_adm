@@ -110,44 +110,47 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 .setAutoCancel(true);
 
             notificationManager.notify(1, builder.build());
+        }else{
+
+
+
+            /* String to access message field from data JSON. */
+            final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
+
+            /* String to access timeStamp field from data JSON. */
+            final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
+
+            /* Intent action that will be triggered in onMessage() callback. */
+            final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
+
+
+            /* Extract message from the extras in the intent. */
+            final String msg = extras.getString(msgKey);
+            final String time = extras.getString(timeKey);
+
+            if (msg == null || time == null)
+            {
+                Log.w(TAG, "PluginADMMessageHandlerJobBase:onMessage Unable to extract message data." +
+                        "Make sure that msgKey and timeKey values match data elements of your JSON message");
+            }
+
+
+            /* Intent category that will be triggered in onMessage() callback. */
+            final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
+
+            // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
+            final Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction(intentAction);
+            broadcastIntent.addCategory(msgCategory);
+            broadcastIntent.putExtra(msgKey, msg);
+            broadcastIntent.putExtra(timeKey, time);
+            context.sendBroadcast(broadcastIntent);
+    
         }
 
 
 
 
-
-        /* String to access message field from data JSON. */
-        final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
-
-        /* String to access timeStamp field from data JSON. */
-        final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
-
-        /* Intent action that will be triggered in onMessage() callback. */
-        final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
-
-
-        /* Extract message from the extras in the intent. */
-        final String msg = extras.getString(msgKey);
-        final String time = extras.getString(timeKey);
-
-        if (msg == null || time == null)
-        {
-            Log.w(TAG, "PluginADMMessageHandlerJobBase:onMessage Unable to extract message data." +
-                    "Make sure that msgKey and timeKey values match data elements of your JSON message");
-        }
-
-
-        /* Intent category that will be triggered in onMessage() callback. */
-        final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
-
-        // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
-        final Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(intentAction);
-        broadcastIntent.addCategory(msgCategory);
-        broadcastIntent.putExtra(msgKey, msg);
-        broadcastIntent.putExtra(timeKey, time);
-        context.sendBroadcast(broadcastIntent);
- 
     }
 
     /** {@inheritDoc} */
