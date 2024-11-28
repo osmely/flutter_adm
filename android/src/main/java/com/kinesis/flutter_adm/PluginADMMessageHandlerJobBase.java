@@ -34,6 +34,12 @@ import android.app.NotificationManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import android.os.Build;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 
 /**
  * The PluginADMMessageHandlerJobBase class receives messages sent by ADM via the SampleADMMessageReceiver receiver.
@@ -70,18 +76,20 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 jsonExtras.put(key, extras.get(key));
             }
 
+            showNotification(context, jsonExtras);
+
             // If app is in foreground, send message directly
-            if (isAppInForeground(context)) {
-                String messageData = (new JSONObject(jsonExtras)).toString();
-                mainHandler.post(() -> sendMessageToDart(messageData));
+            // if (isAppInForeground(context)) {
+            //     String messageData = (new JSONObject(jsonExtras)).toString();
+            //     mainHandler.post(() -> sendMessageToDart(messageData));
                 
-            } else {
+            // } else {
 
-                // If app is in background, show notification
-                showNotification(context, jsonExtras);
+            //     // If app is in background, show notification
+            //     showNotification(context, jsonExtras);
 
                 
-            }
+            // }
         }
 
         
@@ -185,6 +193,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         return false;
     }
 
+    
+
     private void showNotification(Context context, Map<String, Object> message) {
 
         Log.d("showNotification", ":::: ***** ");
@@ -225,4 +235,48 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
         notificationManager.notify(1, builder.build());
     }
+
+
+    public static void createADMNotification(final Context context, final String msgKey, final String timeKey,
+                                             final String intentAction, final String msg, final String time)
+    {
+
+        /* Clicking the notification should bring up the MainActivity. */
+        /* Intent FLAGS prevent opening multiple instances of MainActivity. */
+        final Intent notificationIntent = new Intent(context, MainActivity.class);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.putExtra(msgKey, msg);
+        notificationIntent.putExtra(timeKey, time);
+
+        /* Android reuses intents that have the same action. Adding a time stamp to the action ensures that */
+        /* the notification intent received in onResume() isn't one that was recycled and that may hold old extras. */
+        notificationIntent.setAction(intentAction + time);
+
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL);
+
+        Notification.Builder builder;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder = new Notification.Builder(context, CHANNEL_ID)
+                    .setContentTitle("ADM Message Received!")
+                    .setContentText(msg)
+                    .setSmallIcon(R.drawable.iv_notification_image)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+        } else {
+            builder = new Notification.Builder(context)
+                    .setContentTitle("ADM Message Received!")
+                    .setContentText(msg)
+                    .setSmallIcon(R.drawable.iv_notification_image)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+        }
+
+        Notification notification = builder.build();
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        notificationManager.notify(context.getResources().getInteger(R.integer.sample_app_notification_id), notification);
+    }
+
 }

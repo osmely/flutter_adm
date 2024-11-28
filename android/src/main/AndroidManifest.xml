@@ -24,17 +24,6 @@
         <service android:name=".PluginADMMessageHandlerJobBase"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
-            
-
-            <!-- Deshabilitar notificaciones por defecto -->
-            <meta-data
-                android:name="com.amazon.device.messaging.default-notification-enabled"
-                android:value="false" />
-            <!-- Usar nuestro handler personalizado -->
-            <meta-data
-                android:name="com.amazon.device.messaging.handler-version"
-                android:value="2" />
-                
         </service>
 
         <!-- You must explicitly enable ADM. You must also declare whether your application will run with or without ADM.
