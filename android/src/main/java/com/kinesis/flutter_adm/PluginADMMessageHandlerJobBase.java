@@ -72,22 +72,22 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
 
 
-        /* String to access message field from data JSON. */
-        final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
+        // /* String to access message field from data JSON. */
+        // final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
 
-        /* String to access timeStamp field from data JSON. */
-        final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
+        // /* String to access timeStamp field from data JSON. */
+        // final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
 
-        /* Intent action that will be triggered in onMessage() callback. */
-        final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
+        // /* Intent action that will be triggered in onMessage() callback. */
+        // final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
 
 
-        /* Extract message from the extras in the intent. */
-        final String msg = extras.getString(msgKey);
-        final String time = extras.getString(timeKey);
+        // /* Extract message from the extras in the intent. */
+        // final String msg = extras.getString(msgKey);
+        // final String time = extras.getString(timeKey);
 
-        /* Intent category that will be triggered in onMessage() callback. */
-        final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
+        // /* Intent category that will be triggered in onMessage() callback. */
+        // final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
 
         // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
         // final Intent broadcastIntent = new Intent();
