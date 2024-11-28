@@ -213,6 +213,6 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             .setAutoCancel(true)
             .setContentIntent(pendingIntent);
 
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
+        notificationManager.notify(1, builder.build());
     }
 }
