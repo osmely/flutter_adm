@@ -6,12 +6,19 @@
 
 package com.kinesis.flutter_adm;
 
+
 import android.os.Handler;
 import android.os.Looper;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.app.ActivityManager;
+import java.util.List;
+import android.app.NotificationManager;
+import android.app.NotificationChannel;
+import androidx.core.app.NotificationCompat;
+import android.os.Build;
 
 import com.amazon.device.messaging.ADMConstants;
 import com.amazon.device.messaging.ADMMessageHandlerJobBase;
@@ -21,13 +28,6 @@ import java.util.Map;
 import java.util.Set;
 import org.json.JSONObject;
 import org.json.JSONException;
-import android.util.Log;
-
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import android.os.Build;
 
 /**
  * The PluginADMMessageHandlerJobBase class receives messages sent by ADM via the SampleADMMessageReceiver receiver.
