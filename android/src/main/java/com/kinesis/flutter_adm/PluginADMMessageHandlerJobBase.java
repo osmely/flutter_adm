@@ -5,7 +5,7 @@
  */
 
 package com.kinesis.flutter_adm;
-
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.app.ActivityManager;
@@ -70,6 +70,9 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 jsonExtras.put(key, extras.get(key));
             }
 
+
+            setResult(Activity.RESULT_OK, null, null);
+            
 
             // If app is in foreground, send message directly
             if (isAppInForeground(context)) {
