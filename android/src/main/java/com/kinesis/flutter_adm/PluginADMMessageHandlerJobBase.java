@@ -69,8 +69,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             for (String key : extras.keySet()) {
                 try {
                     jsonExtras.put(key, extras.get(key));
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error converting extras to JSON", e);
+                } catch (e) {
+                    
                 }
             }
 
