@@ -8,10 +8,15 @@ package com.kinesis.flutter_adm;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.app.ActivityManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.os.Build;
 import android.util.Log;
+
 
 import com.amazon.device.messaging.ADMConstants;
 import com.amazon.device.messaging.ADMMessageHandlerJobBase;
@@ -71,10 +76,9 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
             // If app is in foreground, send message directly
             if (isAppInForeground(context)) {
-                if (channel != null) {
-                    String messageData = (new JSONObject(jsonExtras)).toString();
-                    mainHandler.post(() -> sendMessageToDart(messageData));
-                }
+                String messageData = (new JSONObject(jsonExtras)).toString();
+                mainHandler.post(() -> sendMessageToDart(messageData));
+                
             } else {
                     // If app is in background, show notification
                     showNotification(context, jsonExtras);
