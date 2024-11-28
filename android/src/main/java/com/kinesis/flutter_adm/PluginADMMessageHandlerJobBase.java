@@ -6,19 +6,12 @@
 
 package com.kinesis.flutter_adm;
 
-
 import android.os.Handler;
 import android.os.Looper;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.app.ActivityManager;
-import java.util.List;
-import android.app.NotificationManager;
-import android.app.NotificationChannel;
-import androidx.core.app.NotificationCompat;
-import android.os.Build;
 
 import com.amazon.device.messaging.ADMConstants;
 import com.amazon.device.messaging.ADMMessageHandlerJobBase;
@@ -28,6 +21,13 @@ import java.util.Map;
 import java.util.Set;
 import org.json.JSONObject;
 import org.json.JSONException;
+import android.util.Log;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import android.os.Build;
 
 /**
  * The PluginADMMessageHandlerJobBase class receives messages sent by ADM via the SampleADMMessageReceiver receiver.
@@ -48,22 +48,6 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     {
         super();
     }
-
-    private boolean isAppInForeground(Context context) {
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
-        if (appProcesses == null) return false;
-
-        String packageName = context.getPackageName();
-        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND 
-                && appProcess.processName.equals(packageName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     /** {@inheritDoc} */
     @Override
@@ -89,66 +73,37 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
 
 
-        int iconResourceId = context.getResources().getIdentifier("notification_image", "drawable", context.getPackageName());
-        if (iconResourceId == 0) {
-            iconResourceId = context.getResources().getIdentifier("ic_launcher_round", "mipmap", context.getPackageName());
-        }
+        /* String to access message field from data JSON. */
+        final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
 
-        // Solo mostrar notificación si la app está en segundo plano o cerrada
-        if (!isAppInForeground(context)) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
-                notificationManager.createNotificationChannel(channel);
-            }
+        /* String to access timeStamp field from data JSON. */
+        final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
-                .setSmallIcon(iconResourceId)
-                .setContentTitle("Nuevo mensaje")
-                .setContentText(extras.getString(PluginADMConstants.JSON_DATA_MSG_KEY, "Tienes un nuevo mensaje"))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
-            notificationManager.notify(1, builder.build());
-        }else{
+        /* Intent action that will be triggered in onMessage() callback. */
+        final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
 
 
+        /* Extract message from the extras in the intent. */
+        final String msg = extras.getString(msgKey);
+        final String time = extras.getString(timeKey);
 
-            /* String to access message field from data JSON. */
-            final String msgKey = PluginADMConstants.JSON_DATA_MSG_KEY;
-
-            /* String to access timeStamp field from data JSON. */
-            final String timeKey = PluginADMConstants.JSON_DATA_TIME_KEY;
-
-            /* Intent action that will be triggered in onMessage() callback. */
-            final String intentAction = PluginADMConstants.INTENT_MSG_ACTION;
-
-
-            /* Extract message from the extras in the intent. */
-            final String msg = extras.getString(msgKey);
-            final String time = extras.getString(timeKey);
-
-            if (msg == null || time == null)
-            {
-                Log.w(TAG, "PluginADMMessageHandlerJobBase:onMessage Unable to extract message data." +
-                        "Make sure that msgKey and timeKey values match data elements of your JSON message");
-            }
-
-
-            /* Intent category that will be triggered in onMessage() callback. */
-            final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
-
-            // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
-            final Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction(intentAction);
-            broadcastIntent.addCategory(msgCategory);
-            broadcastIntent.putExtra(msgKey, msg);
-            broadcastIntent.putExtra(timeKey, time);
-            context.sendBroadcast(broadcastIntent);
-    
+        if (msg == null || time == null)
+        {
+            Log.w(TAG, "PluginADMMessageHandlerJobBase:onMessage Unable to extract message data." +
+                    "Make sure that msgKey and timeKey values match data elements of your JSON message");
         }
 
 
+        /* Intent category that will be triggered in onMessage() callback. */
+        final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
+
+        // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
+        final Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(intentAction);
+        broadcastIntent.addCategory(msgCategory);
+        broadcastIntent.putExtra(msgKey, msg);
+        broadcastIntent.putExtra(timeKey, time);
+        context.sendBroadcast(broadcastIntent);
 
 
     }
