@@ -54,7 +54,6 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     protected void onMessage(final Context context, final Intent intent)
     {
         
-
         Bundle extras = intent.getExtras();
         JSONObject jsonExtras = new JSONObject();
         
@@ -68,8 +67,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             }
         }
         
-        // String messageData = jsonExtras.toString();
-        // mainHandler.post(() -> sendMessageToDart(messageData));
+        String messageData = jsonExtras.toString();
+        mainHandler.post(() -> sendMessageToDart(messageData));
 
 
 
@@ -87,23 +86,16 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         final String msg = extras.getString(msgKey);
         final String time = extras.getString(timeKey);
 
-        if (msg == null || time == null)
-        {
-            Log.w(TAG, "PluginADMMessageHandlerJobBase:onMessage Unable to extract message data." +
-                    "Make sure that msgKey and timeKey values match data elements of your JSON message");
-        }
-
-
         /* Intent category that will be triggered in onMessage() callback. */
         final String msgCategory = PluginADMConstants.INTENT_MSG_CATEGORY;
 
         // Crear y enviar el broadcast para actualización de UI cuando la app está en primer plano
-        final Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(intentAction);
-        broadcastIntent.addCategory(msgCategory);
-        broadcastIntent.putExtra(msgKey, msg);
-        broadcastIntent.putExtra(timeKey, time);
-        context.sendBroadcast(broadcastIntent);
+        // final Intent broadcastIntent = new Intent();
+        // broadcastIntent.setAction(intentAction);
+        // broadcastIntent.addCategory(msgCategory);
+        // broadcastIntent.putExtra(msgKey, msg);
+        // broadcastIntent.putExtra(timeKey, time);
+        // context.sendBroadcast(broadcastIntent);
 
 
     }
