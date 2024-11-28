@@ -4,7 +4,7 @@
  * (c) 2019, Amazon.com, Inc. or its affiliates. All Rights Reserved.
  */
 package com.kinesis.flutter_adm;
-
+import android.app.Activity;
 import com.amazon.device.messaging.ADMMessageReceiver;
 
 /**
@@ -18,5 +18,7 @@ public class PluginADMMessageReceiver extends ADMMessageReceiver {
         if(ADMHelper.IS_ADM_V2) {
             registerJobServiceClass(PluginADMMessageHandlerJobBase.class, ADMHelper.JOB_ID);
         }
+
+        setResultCode(Activity.RESULT_OK)
     }
 }

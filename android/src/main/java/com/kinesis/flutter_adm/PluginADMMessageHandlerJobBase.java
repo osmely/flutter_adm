@@ -70,10 +70,6 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 jsonExtras.put(key, extras.get(key));
             }
 
-
-            setResult(Activity.RESULT_OK, null, null);
-            
-
             // If app is in foreground, send message directly
             if (isAppInForeground(context)) {
                 String messageData = (new JSONObject(jsonExtras)).toString();
