@@ -195,7 +195,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         // Create notification channel for Android O and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
+                "adm_notifications",
                 "ADM Notifications",
                 NotificationManager.IMPORTANCE_HIGH
             );
