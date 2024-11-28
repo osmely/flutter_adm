@@ -76,13 +76,14 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 mainHandler.post(() -> sendMessageToDart(messageData));
                 
             } else {
+
                 // If app is in background, show notification
-                // showNotification(context, jsonExtras);
+                showNotification(context, jsonExtras);
+
+                
             }
         }
 
-         // Prevenir la notificación por defecto de ADM
-        excludeMessageFromAppNotifications(intent);
         
         // String messageData = jsonExtras.toString();
         // mainHandler.post(() -> sendMessageToDart(messageData));
