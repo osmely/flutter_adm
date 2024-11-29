@@ -84,6 +84,9 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             } else {
 
                 // If app is in background, show notification
+                jsonExtras.put('title', 'Titulo');
+                jsonExtras.put('message', 'message....');
+                
                 showNotification(context, jsonExtras);
 
                 
@@ -218,7 +221,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
         PendingIntent pendingIntent = PendingIntent.getActivity(
             context,
-            0,
+            (int) System.currentTimeMillis(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
@@ -235,7 +238,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             .setAutoCancel(true)
             .setContentIntent(pendingIntent);
 
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify((int) System.currentTimeMillis(), builder.build());
     }
 
 

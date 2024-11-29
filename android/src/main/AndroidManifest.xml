@@ -3,7 +3,9 @@
     package="com.kinesis.flutter_adm">
 
     <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
-    
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <permission
         android:name="com.kinesis.flutter_adm.permission.RECEIVE_ADM_MESSAGE"
@@ -24,6 +26,10 @@
         <service android:name=".PluginADMMessageHandlerJobBase"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
+            android:priority="1000">
+            <intent-filter android:priority="1000">
+                <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
+            </intent-filter>
         </service>
 
         <!-- You must explicitly enable ADM. You must also declare whether your application will run with or without ADM.
