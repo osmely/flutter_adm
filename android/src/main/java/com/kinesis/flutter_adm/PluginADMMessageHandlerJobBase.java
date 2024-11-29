@@ -227,10 +227,14 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         );
 
         // Build notification
+
+        int iconResId = context.getResources().getIdentifier("notification_image", "drawable", context.getPackageName());
+
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, PluginADMConstants.NOTIFICATION_CHANNEL_ID)
             .setContentTitle(message.containsKey("title") ? message.get("title").toString() : "New Message")
             .setContentText(message.containsKey("message") ? message.get("message").toString() : "You have a new message")
-            .setSmallIcon(android.R.drawable.iv_notification_image)
+            .setSmallIcon(iconResId)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent);
 
