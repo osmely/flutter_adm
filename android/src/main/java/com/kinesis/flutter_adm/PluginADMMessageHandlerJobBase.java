@@ -84,8 +84,8 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
             } else {
 
                 // If app is in background, show notification
-                jsonExtras.put('title', 'Titulo');
-                jsonExtras.put('message', 'message....');
+                jsonExtras.put("title", "Titulo");
+                jsonExtras.put("message", "message....");
                 
                 showNotification(context, jsonExtras);
 
