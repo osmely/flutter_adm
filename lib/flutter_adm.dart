@@ -26,7 +26,7 @@ class FlutterAdm {
     FlutterAdmPlatform.instance.setOnMessage(callback);
   }
 
-  void setOnNotificationClicked(Function(Void) callback) {
+  void setOnNotificationClicked(Function() callback) {
     FlutterAdmPlatform.instance.setOnNotificationClicked(callback);
   }
 
