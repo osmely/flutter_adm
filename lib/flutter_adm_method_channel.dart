@@ -75,6 +75,11 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   }
 
   @override
+  void setOnNotificationClicked(Function() callback) {
+    _onNotificationClicked = callback;
+  }
+
+  @override
   Future<bool> isSupported() async {
     final bool isSupported = await _channel.invokeMethod('isSupported');
     return isSupported;
