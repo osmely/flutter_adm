@@ -77,11 +77,11 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 
 
             // If app is in foreground, send message directly
-            if (isAppInForeground(context)) {
-                String messageData = (new JSONObject(jsonExtras)).toString();
-                mainHandler.post(() -> sendMessageToDart(messageData));
+            // if (isAppInForeground(context)) {
+            //     String messageData = (new JSONObject(jsonExtras)).toString();
+            //     mainHandler.post(() -> sendMessageToDart(messageData));
                 
-            } else {
+            // } else {
 
                 // If app is in background, show notification
                 jsonExtras.put("title", "Titulo");
@@ -90,7 +90,7 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 showNotification(context, jsonExtras);
 
                 
-            }
+            // }
         }
 
     }
