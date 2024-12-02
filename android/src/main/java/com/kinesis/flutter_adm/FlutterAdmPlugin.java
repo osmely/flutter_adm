@@ -133,11 +133,10 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
 
 
     @Override
-    public void onAttachedToActivity(ActivityPluginBinding binding) {
-        this.activity = binding.getActivity();
+    public void onAttachedToActivity(ActivityPluginBinding activityPluginBinding) {
+        Log.d("ActivityAware", "onAttachedToActivity :::: ***** ");
 
-        Log.d("onAttachedToActivity", ":::: ***** ");
-        
+        this.activity = binding.getActivity();
         // Verificamos si la app fue abierta desde una notificación
         Intent intent = activity.getIntent();
         if (intent != null && intent.getBooleanExtra("from_notification", false)) {
@@ -147,16 +146,19 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
+        Log.d("ActivityAware", "onDetachedFromActivityForConfigChanges :::: ***** ");
         this.activity = null;
     }
 
     @Override
-    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
+        Log.d("ActivityAware", "onReattachedToActivityForConfigChanges :::: ***** ");
         this.activity = binding.getActivity();
     }
 
     @Override
     public void onDetachedFromActivity() {
+        Log.d("ActivityAware", "onDetachedFromActivity :::: ***** ");
         this.activity = null;
     }
 
