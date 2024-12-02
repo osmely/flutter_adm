@@ -133,7 +133,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
 
 
     @Override
-    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+    public void onAttachedToActivity(ActivityPluginBinding binding) {
         this.activity = binding.getActivity();
 
         Log.d("onAttachedToActivity", ":::: ***** ");
@@ -151,7 +151,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
     }
 
     @Override
-    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
         this.activity = binding.getActivity();
     }
 
