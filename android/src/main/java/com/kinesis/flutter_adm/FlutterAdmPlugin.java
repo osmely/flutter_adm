@@ -29,6 +29,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        Log.d("onAttachedToEngine", ":::: -> ");
         applicationContext = binding.getApplicationContext(); 
         FlutterAdmPlugin.channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_adm");
         FlutterAdmPlugin.channel.setMethodCallHandler(this);

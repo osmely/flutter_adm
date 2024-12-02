@@ -45,7 +45,11 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
     });
 
-    _channel.invokeMethod('initialize');
+    try {
+        await _channel.invokeMethod('initialize');
+    } catch (e) {
+        print('Error calling initialize: $e');
+    }
   }
 
   @override
