@@ -135,6 +135,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
     @Override
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
         this.activity = binding.getActivity();
+
+        Log.d("onAttachedToActivity", ":::: ***** ");
         
         // Verificamos si la app fue abierta desde una notificación
         Intent intent = activity.getIntent();
@@ -159,6 +161,8 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
     }
 
     private void checkAndSendNotificationData() {
+        Log.d("checkAndSendNotificationData", ":::: ***** ");
+
         SharedPreferences prefs = applicationContext.getSharedPreferences("adm_notifications", Context.MODE_PRIVATE);
         String notificationData = prefs.getString("notification_data", null);
         if (notificationData != null) {
