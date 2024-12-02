@@ -19,7 +19,7 @@ import android.content.SharedPreferences;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
+public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
     private static MethodChannel channel;
     private Context applicationContext;
     private Activity activity;
@@ -131,47 +131,47 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
     // ActivityAware ============================================================
     //=====================================================================
 
-    // @Override
-    // public void onAttachedToActivity(ActivityPluginBinding activityPluginBinding) {
-    //     Log.d("ActivityAware", "onAttachedToActivity :::: ***** ");
+    @Override
+    public void onAttachedToActivity(ActivityPluginBinding activityPluginBinding) {
+        Log.d("ActivityAware", "onAttachedToActivity :::: ***** ");
 
-    //     this.activity = activityPluginBinding.getActivity();
-    //     // Verificamos si la app fue abierta desde una notificación
-    //     Intent intent = activity.getIntent();
-    //     if (intent != null && intent.getBooleanExtra("from_notification", false)) {
-    //         checkAndSendNotificationData();
-    //     }
-    // }
+        this.activity = activityPluginBinding.getActivity();
+        // Verificamos si la app fue abierta desde una notificación
+        Intent intent = activity.getIntent();
+        if (intent != null && intent.getBooleanExtra("from_notification", false)) {
+            checkAndSendNotificationData();
+        }
+    }
 
-    // @Override
-    // public void onDetachedFromActivityForConfigChanges() {
-    //     Log.d("ActivityAware", "onDetachedFromActivityForConfigChanges :::: ***** ");
-    //     this.activity = null;
-    // }
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+        Log.d("ActivityAware", "onDetachedFromActivityForConfigChanges :::: ***** ");
+        this.activity = null;
+    }
 
-    // @Override
-    // public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
-    //     Log.d("ActivityAware", "onReattachedToActivityForConfigChanges :::: ***** ");
-    //     this.activity = activityPluginBinding.getActivity();
-    // }
+    @Override
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
+        Log.d("ActivityAware", "onReattachedToActivityForConfigChanges :::: ***** ");
+        this.activity = activityPluginBinding.getActivity();
+    }
 
-    // @Override
-    // public void onDetachedFromActivity() {
-    //     Log.d("ActivityAware", "onDetachedFromActivity :::: ***** ");
-    //     this.activity = null;
-    // }
+    @Override
+    public void onDetachedFromActivity() {
+        Log.d("ActivityAware", "onDetachedFromActivity :::: ***** ");
+        this.activity = null;
+    }
 
-    // private void checkAndSendNotificationData() {
-    //     Log.d("checkAndSendNotificationData", ":::: ***** ");
+    private void checkAndSendNotificationData() {
+        Log.d("checkAndSendNotificationData", ":::: ***** ");
 
-    //     SharedPreferences prefs = applicationContext.getSharedPreferences("adm_notifications", Context.MODE_PRIVATE);
-    //     String notificationData = prefs.getString("notification_data", null);
-    //     if (notificationData != null) {
-    //         // Enviamos los datos a Flutter
-    //         channel.invokeMethod("onNotificationClicked", notificationData);
-    //         // Limpiamos los datos guardados
-    //         prefs.edit().remove("notification_data").apply();
-    //     }
-    // }
+        SharedPreferences prefs = applicationContext.getSharedPreferences("adm_notifications", Context.MODE_PRIVATE);
+        String notificationData = prefs.getString("notification_data", null);
+        if (notificationData != null) {
+            // Enviamos los datos a Flutter
+            channel.invokeMethod("onNotificationClicked", notificationData);
+            // Limpiamos los datos guardados
+            prefs.edit().remove("notification_data").apply();
+        }
+    }
 
 }
