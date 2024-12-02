@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import android.content.Intent;
+import android.app.Activity;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -157,7 +159,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
     }
 
     private void checkAndSendNotificationData() {
-        SharedPreferences prefs = context.getSharedPreferences("adm_notifications", Context.MODE_PRIVATE);
+        SharedPreferences prefs = applicationContext.getSharedPreferences("adm_notifications", Context.MODE_PRIVATE);
         String notificationData = prefs.getString("notification_data", null);
         if (notificationData != null) {
             // Enviamos los datos a Flutter
