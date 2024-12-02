@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
-    private static final String DEBUG_NAME = "ADMPlugin";
+    
     private static MethodChannel channel;
     private Context applicationContext;
     private Activity activity;
@@ -47,7 +47,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, Activ
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         
-        LogUtils.debug(DEBUG_NAME, "triggered onMethodCall :::: " + call.method);
+        Log.d("onMethodCall", "onMethodCall :::: " + call.method);
 
         if (call.method.equals("startRegister")) {
             executorService.execute(() -> handleStartRegister(result));
