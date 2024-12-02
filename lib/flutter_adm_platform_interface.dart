@@ -33,6 +33,10 @@ abstract class FlutterAdmPlatform extends PlatformInterface {
     throw UnimplementedError('setOnMessage() has not been implemented.');
   }
 
+  void setOnNotificationClicked(Function(Void) callback) {
+    throw UnimplementedError('setOnNotificationClicked() has not been implemented.');
+  }
+
   Future<bool> isSupported() async {
     throw UnimplementedError('isSupported() has not been implemented.');
   }

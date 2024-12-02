@@ -11,6 +11,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   Function(String)? _onRegistrationCallback;
   Function(String)? _onMessageCallback;
+  Function(Void)? _onNotificationClicked;
 
 
   @override
@@ -29,6 +30,18 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
         }
       }
 
+      if (call.method == 'onNotificationClicked') {
+        if(_onNotificationClicked != null){
+          _onNotificationClicked!();
+        }
+        // try {
+        //   final Map<String, dynamic> data = 
+        //     json.decode(call.arguments as String) as Map<String, dynamic>;
+        //   _notificationController?.add(data);
+        // } catch (e) {
+        //   print('Error parsing notification data: $e');
+        // }
+      }
 
     });
 

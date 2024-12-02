@@ -5,19 +5,22 @@ import android.os.Looper;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import com.amazon.device.messaging.ADM;
 import android.content.Context;
-
+import android.content.SharedPreferences;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
+public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
     private static MethodChannel channel;
     private Context applicationContext;
+    private Activity activity;
     private ADM adm;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper()); // Handler para el hilo principal
@@ -120,4 +123,48 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler {
         Log.d("sendRegistrationIdToDartOnMainThread", "::::");
         mainHandler.post(() -> sendRegistrationIdToDart(registrationId));
     }
+
+    //=====================================================================
+    // Private ============================================================
+    //=====================================================================
+
+
+
+    @Override
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+        this.activity = binding.getActivity();
+        
+        // Verificamos si la app fue abierta desde una notificación
+        Intent intent = activity.getIntent();
+        if (intent != null && intent.getBooleanExtra("from_notification", false)) {
+            checkAndSendNotificationData();
+        }
+    }
+
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+        this.activity = null;
+    }
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+        this.activity = binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+        this.activity = null;
+    }
+
+    private void checkAndSendNotificationData() {
+        SharedPreferences prefs = context.getSharedPreferences("adm_notifications", Context.MODE_PRIVATE);
+        String notificationData = prefs.getString("notification_data", null);
+        if (notificationData != null) {
+            // Enviamos los datos a Flutter
+            channel.invokeMethod("onNotificationClicked", notificationData);
+            // Limpiamos los datos guardados
+            prefs.edit().remove("notification_data").apply();
+        }
+    }
+
 }
