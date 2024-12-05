@@ -26,11 +26,15 @@ class FlutterAdm {
     FlutterAdmPlatform.instance.setOnMessage(callback);
   }
 
-  void setOnNotificationClicked(Function() callback) {
+  void setOnNotificationClicked(Function(String) callback) {
     FlutterAdmPlatform.instance.setOnNotificationClicked(callback);
   }
 
   Future<bool> isSupported() async {
     return FlutterAdmPlatform.instance.isSupported();
+  }
+
+  Future<String?> getInitialMessage() async {
+    return FlutterAdmPlatform.instance.getInitialMessage();
   }
 }

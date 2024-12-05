@@ -15,6 +15,7 @@ import com.amazon.device.messaging.ADMMessageReceiver;
 public class PluginADMMessageReceiver extends ADMMessageReceiver {
     public PluginADMMessageReceiver() {
         super(PluginADMMessageHandler.class);
+        LogUtils.debug("PluginADMMessageReceiver");
         if(ADMHelper.IS_ADM_V2) {
             registerJobServiceClass(PluginADMMessageHandlerJobBase.class, ADMHelper.JOB_ID);
         }

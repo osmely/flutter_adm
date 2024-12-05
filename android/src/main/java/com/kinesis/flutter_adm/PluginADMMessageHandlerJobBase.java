@@ -5,41 +5,37 @@
  */
 
 package com.kinesis.flutter_adm;
+
+
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.amazon.device.messaging.ADMConstants;
 import com.amazon.device.messaging.ADMMessageHandlerJobBase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.List;
-import org.json.JSONObject;
-import org.json.JSONException;
-import android.util.Log;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import android.os.Build;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
+
 
 /**
  * The PluginADMMessageHandlerJobBase class receives messages sent by ADM via the SampleADMMessageReceiver receiver.
@@ -48,8 +44,6 @@ import android.os.Build;
  */
 public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
 {
-    /** Tag for logs. */
-    private final static String TAG = "ADMSampleJobBase";
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper()); // Handler para el hilo principal
 
@@ -59,13 +53,14 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
     public PluginADMMessageHandlerJobBase()
     {
         super();
+        LogUtils.debug("PluginADMMessageHandlerJobBase");
     }
 
     /** {@inheritDoc} */
     @Override
-    protected void onMessage(final Context context, final Intent intent)
-    {
-        
+    protected void onMessage(final Context context, final Intent intent){
+        LogUtils.debug("onMessage");
+
         Bundle extras = intent.getExtras();
         
         if (extras != null) {
@@ -75,22 +70,12 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
                 jsonExtras.put(key, extras.get(key));
             }
 
-
             // If app is in foreground, send message directly
-            // if (isAppInForeground(context)) {
-            //     String messageData = (new JSONObject(jsonExtras)).toString();
-            //     mainHandler.post(() -> sendMessageToDart(messageData));
-                
-            // } else {
-
-                // If app is in background, show notification
-                jsonExtras.put("title", "Titulo");
-                jsonExtras.put("body", "message....");
-                
-                showNotification(context, jsonExtras);
-
-                
-            // }
+            if (isAppInForeground(context)) {
+                String messageData = (new JSONObject(jsonExtras)).toString();
+                mainHandler.post(() -> sendMessageToDart(messageData));
+            } 
+            
         }
 
     }
@@ -136,7 +121,6 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         
     }
 
-
     public static void sendRegistrationIdToDart(String registrationId) {
         FlutterAdmPlugin.sendRegistrationIdToDart(registrationId);
     }
@@ -161,98 +145,5 @@ public class PluginADMMessageHandlerJobBase extends ADMMessageHandlerJobBase
         }
         return false;
     }
-
-    
-
-    private void showNotification(Context context, Map<String, Object> message) {
-
-        Log.d("showNotification", ":::: ***** ");
-
-        NotificationManager notificationManager = 
-            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        
-        // Create notification channel for Android O and above
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                PluginADMConstants.NOTIFICATION_CHANNEL_ID,
-                "ADM Notifications",
-                NotificationManager.IMPORTANCE_HIGH
-            );
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        // Create intent for NotificationActivity
-
-         Intent launchIntent = context.getPackageManager()
-                .getLaunchIntentForPackage(context.getPackageName());
-            launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            launchIntent.putExtra("from_notification", true);
-            launchIntent.putExtra("app_data", new JSONObject(message).toString());
-
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-            context,
-            (int) System.currentTimeMillis(),
-            launchIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
-
-        // Build notification
-
-        int iconResId = context.getResources().getIdentifier("notification_image", "drawable", context.getPackageName());
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, PluginADMConstants.NOTIFICATION_CHANNEL_ID)
-            .setContentTitle(message.containsKey("title") ? message.get("title").toString() : "New Message")
-            .setContentText(message.containsKey("message") ? message.get("message").toString() : "You have a new message")
-            .setSmallIcon(iconResId)
-            .setAutoCancel(true)
-            .setContentIntent(pendingIntent);
-
-        notificationManager.notify((int) System.currentTimeMillis(), builder.build());
-    }
-
-
-    // public static void createADMNotification(final Context context, final String msgKey, final String timeKey,
-    //                                          final String intentAction, final String msg, final String time)
-    // {
-
-    //     /* Clicking the notification should bring up the MainActivity. */
-    //     /* Intent FLAGS prevent opening multiple instances of MainActivity. */
-    //     final Intent notificationIntent = new Intent(context, MainActivity.class);
-    //     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    //     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-    //     notificationIntent.putExtra(msgKey, msg);
-    //     notificationIntent.putExtra(timeKey, time);
-
-    //     /* Android reuses intents that have the same action. Adding a time stamp to the action ensures that */
-    //     /* the notification intent received in onResume() isn't one that was recycled and that may hold old extras. */
-    //     notificationIntent.setAction(intentAction + time);
-
-    //     final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL);
-
-    //     Notification.Builder builder;
-
-    //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-    //         builder = new Notification.Builder(context, CHANNEL_ID)
-    //                 .setContentTitle("ADM Message Received!")
-    //                 .setContentText(msg)
-    //                 .setSmallIcon(R.drawable.iv_notification_image)
-    //                 .setContentIntent(pendingIntent)
-    //                 .setAutoCancel(true);
-    //     } else {
-    //         builder = new Notification.Builder(context)
-    //                 .setContentTitle("ADM Message Received!")
-    //                 .setContentText(msg)
-    //                 .setSmallIcon(R.drawable.iv_notification_image)
-    //                 .setContentIntent(pendingIntent)
-    //                 .setAutoCancel(true);
-    //     }
-
-    //     Notification notification = builder.build();
-
-    //     NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-    //     notificationManager.notify(context.getResources().getInteger(R.integer.sample_app_notification_id), notification);
-    // }
 
 }

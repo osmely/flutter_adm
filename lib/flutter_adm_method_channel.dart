@@ -11,7 +11,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   Function(String)? _onRegistrationCallback;
   Function(String)? _onMessageCallback;
-  Function()? _onNotificationClicked;
+  Function(String)? _onNotificationClicked;
 
 
   @override
@@ -34,15 +34,14 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
       if (call.method == 'onNotificationClicked') {
         if(_onNotificationClicked != null){
-          _onNotificationClicked!();
+          try {
+          _onNotificationClicked!(call.arguments as String);
+        } catch (e) {
+          print('Error parsing notification data: $e');
         }
-        // try {
-        //   final Map<String, dynamic> data = 
-        //     json.decode(call.arguments as String) as Map<String, dynamic>;
-        //   _notificationController?.add(data);
-        // } catch (e) {
-        //   print('Error parsing notification data: $e');
-        // }
+
+        }
+        
       }
 
     });
@@ -75,7 +74,7 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   }
 
   @override
-  void setOnNotificationClicked(Function() callback) {
+  void setOnNotificationClicked(Function(String) callback) {
     _onNotificationClicked = callback;
   }
 
@@ -89,4 +88,11 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   Future<void> setTopicSubscription(String topic, bool suscribe) async {
     await _channel.invokeMethod('setTopicSubscription', {'topic': topic, 'suscribe': suscribe});
   }
+
+   @override
+  Future<String?> getInitialMessage() async {
+    final String? lastData = await _channel.invokeMethod('getInitialMessage');
+    return lastData;
+  }
+
 }

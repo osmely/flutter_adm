@@ -18,7 +18,7 @@
 
 
     <application>
-  
+        
         <!--  Declare your ADMMessageHandlerBase implementation as a service -->
         <service android:name=".PluginADMMessageHandler"
             android:exported="false" />
@@ -44,21 +44,6 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>
-
-        <!-- Actividad para manejar notificaciones -->
-        <!-- <activity
-            android:name=".NotificationActivity"
-            android:exported="false"
-            android:theme="@style/LaunchTheme"
-            android:launchMode="singleTop"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
-            <meta-data
-                android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme" />
-        </activity> -->
-
 
     </application>
 </manifest>
