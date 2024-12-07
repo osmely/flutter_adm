@@ -16,7 +16,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import com.amazon.device.messaging.ADM;
 import android.content.Context;
-import android.content.SharedPreferences;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import io.flutter.plugin.common.PluginRegistry.NewIntentListener;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import android.content.SharedPreferences;
 
 public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIntentListener, ActivityAware, Application.ActivityLifecycleCallbacks {
     
@@ -42,9 +42,14 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper()); // Handler para el hilo principal
 
+    private boolean isAmazonFireDevice() {
+        String manufacturer = android.os.Build.MANUFACTURER;
+        return "Amazon".equalsIgnoreCase(manufacturer);
+    }
+
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
-        LogUtils.debug("onAttachedToEngine");
+        LogUtils.debug("onAttachedToEngine");        
         setupChannels(binding.getBinaryMessenger(), binding.getApplicationContext());
     }
 
@@ -69,8 +74,12 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
             this.executorService.execute(() -> handleInitialize(result));
         
         } else if (call.method.equals("isSupported")) {
-            boolean isSupported = adm != null && adm.isSupported();
-            result.success(isSupported); 
+            if(!isAmazonFireDevice()){
+                result.success(false);
+            }else{
+                boolean isSupported = adm != null && adm.isSupported();
+                result.success(isSupported); 
+            }
        
         } else if (call.method.equals("getInitialMessage")) {
             this.executorService.execute(() -> {
@@ -286,7 +295,9 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
         this.context = context; 
         FlutterAdmPlugin.channel = new MethodChannel(binding, "flutter_adm");
         FlutterAdmPlugin.channel.setMethodCallHandler(this);
-        this.adm = new ADM(context);
+        if(isAmazonFireDevice()) {
+            this.adm = new ADM(context);
+        }
     }
 
     private void handleStartRegister(Result result) {

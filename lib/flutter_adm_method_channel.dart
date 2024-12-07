@@ -13,43 +13,38 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   Function(String)? _onMessageCallback;
   Function(String)? _onNotificationClicked;
 
-
   @override
   void initialize() async {
-
     print('MethodChannelFlutterAdm.initialize() called');
 
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'onRegistrationId') {
-        if(_onRegistrationCallback != null){
+        if (_onRegistrationCallback != null) {
           _onRegistrationCallback!(call.arguments as String);
         }
       }
 
       if (call.method == 'onMessage') {
-        if(_onMessageCallback != null){
+        if (_onMessageCallback != null) {
           _onMessageCallback!(call.arguments as String);
         }
       }
 
       if (call.method == 'onNotificationClicked') {
-        if(_onNotificationClicked != null){
+        if (_onNotificationClicked != null) {
           try {
-          _onNotificationClicked!(call.arguments as String);
-        } catch (e) {
-          print('Error parsing notification data: $e');
+            _onNotificationClicked!(call.arguments as String);
+          } catch (e) {
+            print('Error parsing notification data: $e');
+          }
         }
-
-        }
-        
       }
-
     });
 
     try {
-        await _channel.invokeMethod('initialize');
+      await _channel.invokeMethod('initialize');
     } catch (e) {
-        print('Error calling initialize: $e');
+      print('Error calling initialize: $e');
     }
   }
 
@@ -64,12 +59,12 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
   }
 
   @override
-  void startRegister(){
+  void startRegister() {
     _channel.invokeMethod('startRegister');
   }
 
   @override
-  void startUnregister(){
+  void startUnregister() {
     _channel.invokeMethod('startUnregister');
   }
 
@@ -86,13 +81,13 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
 
   @override
   Future<void> setTopicSubscription(String topic, bool suscribe) async {
-    await _channel.invokeMethod('setTopicSubscription', {'topic': topic, 'suscribe': suscribe});
+    await _channel.invokeMethod(
+        'setTopicSubscription', {'topic': topic, 'suscribe': suscribe});
   }
 
-   @override
+  @override
   Future<String?> getInitialMessage() async {
     final String? lastData = await _channel.invokeMethod('getInitialMessage');
     return lastData;
   }
-
 }
