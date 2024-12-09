@@ -40,7 +40,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
     private ADM adm;
     private ActivityPluginBinding activityPluginBinding;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-    private final Handler mainHandler = new Handler(Looper.getMainLooper()); // Handler para el hilo principal
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private boolean isAmazonFireDevice() {
         String manufacturer = android.os.Build.MANUFACTURER;
@@ -102,7 +102,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
      **/
 
     public void sendRegistrationIdToDartOnMainThread(String registrationId) {
-        Log.d("sendRegistrationIdToDartOnMainThread", "::::");
+        LogUtils.debug("sendRegistrationIdToDartOnMainThread");
         mainHandler.post(() -> sendRegistrationIdToDart(registrationId));
     }
 
@@ -182,7 +182,6 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
             return false;
         }
 
-
         // Log the intent action
         String action = intent.getAction();
         LogUtils.debug("Intent action: " + (action != null ? action : "null"));
@@ -195,7 +194,6 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
 
         // Log any extras
         Bundle extras = intent.getExtras();
-
 
         if (extras != null && extras.containsKey("click_action") && "FLUTTER_NOTIFICATION_CLICK".equals(extras.getString("click_action"))) {
             
@@ -217,7 +215,7 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
 
 
 
- /**
+    /**
      * ---------------------------------------------------------------------------------------------
      * ActivityLifecycleCallbacks Interface Methods
      * --------------------------------------------------------------------------------------------
@@ -255,8 +253,6 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
     @Override
     public void onActivityPaused(@NonNull Activity activity) {
         LogUtils.debug("triggered onActivityPaused: " + activity.getClass().getName());
-        // Delay session initialization
-        
     }
 
     @Override
@@ -303,22 +299,14 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
     private void handleStartRegister(Result result) {
         if (this.adm.isSupported()) {    
             this.adm.startRegister();
-        } else {
-            
         }
-
-        // Mover la respuesta al hilo principal
         mainHandler.post(() -> result.success(null));
     }
 
     private void handleStartUnregister(Result result) {
         if (this.adm.isSupported()) {
             this.adm.startUnregister();
-        } else {
-            
         }
-
-        // Mover la respuesta al hilo principal
         mainHandler.post(() -> result.success(null));
     }
 
@@ -331,8 +319,6 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
                 this.adm.startRegister();
             }
         }
-
-        // Mover la respuesta al hilo principal
         mainHandler.post(() -> result.success(null));
     }
 
