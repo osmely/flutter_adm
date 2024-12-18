@@ -88,7 +88,15 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
                 prefs.edit().remove("notification_data").apply();
                 mainHandler.post(() -> result.success(lastData));
             });
-        
+
+        } else if (call.method.equals("getRegistrationId")) {
+            try {
+                String registrationId = this.adm.getRegistrationId();
+                result.success(registrationId); 
+            } catch (Exception e) {
+                result.error("ERROR", "Failed to get registration ID", null);
+            }
+
         } else {
             result.notImplemented();
         }
@@ -140,12 +148,6 @@ public class FlutterAdmPlugin implements FlutterPlugin, MethodCallHandler, NewIn
         this.activityPluginBinding = activityPluginBinding;
         setActivity(activityPluginBinding.getActivity());
         activityPluginBinding.addOnNewIntentListener(this);
-
-         // Verificamos si la app fue abierta desde una notificación
-        Intent intent = activity.getIntent();
-        if (intent != null && intent.getBooleanExtra("from_notification", false)) {
-            
-        }
     }
 
     @Override

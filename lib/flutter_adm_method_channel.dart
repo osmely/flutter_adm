@@ -90,4 +90,11 @@ class MethodChannelFlutterAdm extends FlutterAdmPlatform {
     final String? lastData = await _channel.invokeMethod('getInitialMessage');
     return lastData;
   }
+
+  @override
+  Future<String?> getRegistrationId() async {
+    final String? registrationId =
+        await _channel.invokeMethod('getRegistrationId');
+    return registrationId;
+  }
 }

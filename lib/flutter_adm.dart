@@ -37,4 +37,8 @@ class FlutterAdm {
   Future<String?> getInitialMessage() async {
     return FlutterAdmPlatform.instance.getInitialMessage();
   }
+
+  Future<String?> getRegistrationId() async {
+    return FlutterAdmPlatform.instance.getRegistrationId();
+  }
 }

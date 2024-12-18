@@ -22,7 +22,7 @@ abstract class FlutterAdmPlatform extends PlatformInterface {
   }  
 
   void initialize() {
-    throw UnimplementedError('getRegistrationId() has not been implemented.');
+    throw UnimplementedError('initialize() has not been implemented.');
   }
 
   void setOnRegistrationId(Function(String) callback) { 
@@ -47,6 +47,10 @@ abstract class FlutterAdmPlatform extends PlatformInterface {
 
   Future<String?> getInitialMessage() async {
     throw UnimplementedError('getInitialMessage() has not been implemented.');
+  }
+
+  Future<String?> getRegistrationId() async {
+    throw UnimplementedError('getRegistrationId() has not been implemented.');
   }
 
 }
